@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="100">
 
@@ -33,12 +34,22 @@
             android:gravity="center"
             android:orientation="horizontal" />
 
-        <android.support.v7.widget.AppCompatButton
+        <com.andexert.library.RippleView
+            android:id="@+id/more"
+            rv_centered="true"
+            app:rv_rippleDuration="300"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Continue"
-            android:textColor="#ffff" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/AppTheme.RoundedButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:text="Continue"
+                android:textColor="#ffff" />
+        </com.andexert.library.RippleView>
 
     </LinearLayout>
 
