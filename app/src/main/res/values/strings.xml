@@ -20,4 +20,7 @@
 
     <string name="welcome_message">Welcome to \n Kooba</string>
     <string name="welcome_screen_text">By choosing to continue you are accepting all terms and conditions agreed by kooba</string>
+
+    <string name="FACEBOOK_APP_ID">588042518246985</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">f685cca85d2540cf52bf704c585167d7</string>
 </resources>

@@ -29,7 +29,7 @@
             android:textSize="32sp" />
 
         <com.andexert.library.RippleView
-            android:id="@+id/more"
+            android:id="@+id/login_register_btn"
             rv_centered="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
