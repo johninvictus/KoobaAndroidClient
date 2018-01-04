@@ -1,4 +1,4 @@
-package com.invictus.nkoba.nkoba.ui.onboarding;
+package com.invictus.nkoba.nkoba.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.andexert.library.RippleView;
 import com.invictus.nkoba.nkoba.R;
 
 /**
@@ -32,6 +32,8 @@ public class OnboardingActivity extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
 
+    RippleView rippleView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +46,9 @@ public class OnboardingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_onboarding);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-
+        viewPager = findViewById(R.id.view_pager);
+        dotsLayout = findViewById(R.id.layoutDots);
+        rippleView = findViewById(R.id.continue_ripple);
 
 
         // layouts of all welcome sliders
@@ -66,6 +68,9 @@ public class OnboardingActivity extends AppCompatActivity {
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+        rippleView.setOnRippleCompleteListener(rippleView ->
+                WelcomeActivity.startActivity(this));
 
     }
 
@@ -160,7 +165,7 @@ public class OnboardingActivity extends AppCompatActivity {
         }
     }
 
-    public static void startActivity(Context context){
+    public static void startActivity(Context context) {
         context.startActivity(new Intent(context, OnboardingActivity.class));
     }
 }

@@ -35,9 +35,9 @@
             android:orientation="horizontal" />
 
         <com.andexert.library.RippleView
-            android:id="@+id/more"
+            android:id="@+id/continue_ripple"
             rv_centered="true"
-            app:rv_rippleDuration="300"
+            app:rv_rippleDuration="200"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

@@ -1,4 +1,4 @@
-package com.invictus.nkoba.nkoba.ui;
+package com.invictus.nkoba.nkoba.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.invictus.nkoba.nkoba.R;
-import com.invictus.nkoba.nkoba.ui.onboarding.OnboardingActivity;
 
 public class MainActivity extends AppCompatActivity {
 

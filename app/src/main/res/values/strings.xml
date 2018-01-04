@@ -17,4 +17,7 @@
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
+
+    <string name="welcome_message">Welcome to \n Kooba</string>
+    <string name="welcome_screen_text">By choosing to continue you are accepting all terms and conditions agreed by kooba</string>
 </resources>
