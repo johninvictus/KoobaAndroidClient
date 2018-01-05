@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.invictus.nkoba.nkoba.R;
+import com.invictus.nkoba.nkoba.ui.fragments.RequestLoanFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
 
         Handler handler = new Handler();
         //handler.postDelayed(() -> OnboardingActivity.startActivity(this), 400);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container, new RequestLoanFragment())
+                    .commit();
+        }
     }
 
     @Override
