@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.invictus.nkoba.nkoba.R;
+import com.invictus.nkoba.nkoba.ui.fragments.LoanReturnFragment;
 import com.invictus.nkoba.nkoba.ui.fragments.RequestLoanFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, new RequestLoanFragment())
+                    .add(R.id.fragment_container, new LoanReturnFragment())
                     .commit();
         }
     }

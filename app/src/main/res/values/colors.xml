@@ -46,4 +46,6 @@
     <color name="ak_inputText">#7d97ad</color>
     <color name="ak_statusBar">#00c5a5</color>
     <color name="ak_icon">#09d4b6</color>
+
+    <color name="green_color">#00de6a</color>
 </resources>
