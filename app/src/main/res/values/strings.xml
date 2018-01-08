@@ -24,5 +24,10 @@
     <string name="FACEBOOK_APP_ID">588042518246985</string>
     <string name="ACCOUNT_KIT_CLIENT_TOKEN">f685cca85d2540cf52bf704c585167d7</string>
 
+    <string-array name="payment_schedule">
+        <item>Monthly Payment</item>
+        <item>Weekly Payment</item>
+    </string-array>
+
 
 </resources>

@@ -22,7 +22,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -114,6 +114,58 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/source_sans_pro_light"
+                        android:text="Select payment shedule"
+                        android:textSize="16sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dropDownWidth="match_parent"
+                        android:entries="@array/payment_schedule"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:textSize="14sp"
+                        />
+
+                    <com.andexert.library.RippleView
+                        rv_centered="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        app:rv_rippleDuration="200">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_regular"
+                            android:text="LOAN DETAILS"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            app:srcCompat="@drawable/right_arrow" />
+                    </LinearLayout>
+                    </com.andexert.library.RippleView>
 
                     <com.andexert.library.RippleView
                         android:id="@+id/continue_ripple"
