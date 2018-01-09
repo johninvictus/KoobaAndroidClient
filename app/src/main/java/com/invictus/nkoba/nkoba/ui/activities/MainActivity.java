@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_profile:
-                return false;
+                ProfileActivity.startActivity(this);
+                return true;
 
             case R.id.action_notification:
                 NotificationActivity.startActivity(this);

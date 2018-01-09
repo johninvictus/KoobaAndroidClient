@@ -37,7 +37,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.MainActivity" />
+        <activity android:name=".ui.activities.MainActivity"
+            android:launchMode="singleTop"/>
 
         <!--onboarding feature-->
         <activity android:name=".ui.activities.OnboardingActivity" />
@@ -51,6 +52,15 @@
 
         <activity
             android:name=".ui.activities.NotificationActivity"
+            android:parentActivityName=".ui.activities.MainActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.activities.ProfileActivity"
             android:parentActivityName=".ui.activities.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
