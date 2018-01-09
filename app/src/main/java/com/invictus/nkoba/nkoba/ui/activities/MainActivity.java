@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.invictus.nkoba.nkoba.R;
 import com.invictus.nkoba.nkoba.ui.fragments.LoanReturnFragment;
@@ -40,6 +41,25 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_profile:
+                return false;
+
+            case R.id.action_notification:
+                NotificationActivity.startActivity(this);
+                return true;
+
+            case R.id.action_about:
+                return false;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     public static void startActivity(Activity context) {
         context.startActivity(new Intent(context, MainActivity.class));
