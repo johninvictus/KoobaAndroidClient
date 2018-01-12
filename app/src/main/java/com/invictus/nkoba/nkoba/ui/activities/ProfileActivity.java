@@ -45,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setUpToolbar() {
-        toolbar.setTitle(" ");
+        toolbar.setTitle("Profile");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
