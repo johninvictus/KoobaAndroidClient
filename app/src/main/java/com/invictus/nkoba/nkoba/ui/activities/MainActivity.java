@@ -10,8 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.invictus.nkoba.nkoba.R;
+import com.invictus.nkoba.nkoba.events.RequestButtonClicked;
 import com.invictus.nkoba.nkoba.ui.fragments.LoanReturnFragment;
 import com.invictus.nkoba.nkoba.ui.fragments.RequestLoanFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,5 +70,25 @@ public class MainActivity extends AppCompatActivity {
     public static void startActivity(Activity context) {
         context.startActivity(new Intent(context, MainActivity.class));
         context.finish();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RequestButtonClicked event) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new LoanReturnFragment())
+                .commit();
     }
 }

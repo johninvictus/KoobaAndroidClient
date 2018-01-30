@@ -168,7 +168,7 @@
                     </com.andexert.library.RippleView>
 
                     <com.andexert.library.RippleView
-                        android:id="@+id/continue_ripple"
+                        android:id="@+id/request_ripple"
                         rv_centered="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
