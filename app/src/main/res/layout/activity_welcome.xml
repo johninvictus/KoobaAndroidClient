@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:text="Continue with phone Number"
+                android:text="Continue with email"
                 android:textColor="#ffff" />
         </com.andexert.library.RippleView>
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.invictus.nkoba.nkoba.ui.activities.MainActivity;
+import com.invictus.nkoba.nkoba.ui.activities.OnboardingActivity;
 import com.invictus.nkoba.nkoba.utils.ScreenUtils;
 
 /**
@@ -21,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         ScreenUtils.makeFullScreen(this);
 
         new Handler().postDelayed(() ->
-                MainActivity.startActivity(this), 500);
+                OnboardingActivity.startActivity(this), 500);
 
     }
 }

@@ -29,5 +29,7 @@
         <item>Weekly Payment</item>
     </string-array>
 
+    <string name="ak_login_protocol_scheme">ak588042518246985</string>
+
 
 </resources>

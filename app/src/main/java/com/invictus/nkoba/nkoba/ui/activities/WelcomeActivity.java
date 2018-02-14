@@ -27,7 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         rippleView = findViewById(R.id.login_register_btn);
-        rippleView.setOnRippleCompleteListener(rippleView1 -> onLogin(LoginType.PHONE));
+        rippleView.setOnRippleCompleteListener(rippleView1 -> onLogin(LoginType.EMAIL));
     }
 
 
@@ -38,6 +38,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void onLogin(final LoginType loginType) {
         Intent intent = new Intent(this, AccountKitActivity.class);
 
+        // use AccountKitActivity.ResponseType.CODE to handle via your server
         AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                 new AccountKitConfiguration.AccountKitConfigurationBuilder(
                         loginType,
