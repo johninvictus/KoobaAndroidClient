@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:text="Continue with email"
+                android:text="Continue with phone"
                 android:textColor="#ffff" />
         </com.andexert.library.RippleView>
 
@@ -53,6 +53,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:layout_gravity="center"
+            android:padding="5dp"
             android:text="Passwordless login/register "/>
 
 
