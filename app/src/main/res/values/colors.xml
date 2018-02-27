@@ -48,4 +48,6 @@
     <color name="ak_icon">#09d4b6</color>
 
     <color name="green_color">#00de6a</color>
+
+    <color name="auth_color_bg">#40000000</color>
 </resources>

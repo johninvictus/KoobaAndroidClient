@@ -34,11 +34,6 @@ import static com.invictus.nkoba.nkoba.utils.AppConstants.WRITE_TIMEOUT;
 
 @Module
 public class NetworkModule {
-    private String baseUrl;
-
-    public NetworkModule(String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
 
     @Provides
     @Singleton
@@ -85,7 +80,7 @@ public class NetworkModule {
                               Interceptor interceptor, Cache cache) {
 
         return new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
+//                .addInterceptor(interceptor)
                 .addInterceptor(httpLoggingInterceptor)
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
@@ -105,7 +100,7 @@ public class NetworkModule {
     @Singleton
     Retrofit providesRetrofit(Gson gson, OkHttpClient okHttpClient, RxJava2CallAdapterFactory rxJava2CallAdapterFactory) {
         Retrofit.Builder retrofit = new Retrofit.Builder();
-        return retrofit.baseUrl(baseUrl)
+        return retrofit.baseUrl(AppConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(rxJava2CallAdapterFactory)
                 .client(okHttpClient)

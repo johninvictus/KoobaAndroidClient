@@ -34,6 +34,7 @@ import timber.log.Timber;
 public class WelcomeActivity extends AppCompatActivity {
 
     private static final int APP_REQUEST_CODE = 1;
+    private static final int AUTH_ACTIVITY = 2;
     RippleView rippleView;
 
     @Override
@@ -73,17 +74,33 @@ public class WelcomeActivity extends AppCompatActivity {
 
         if (requestCode == APP_REQUEST_CODE) {
             AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
+
             if (loginResult.getError() != null) {
                 String errorStr = loginResult.getError().getErrorType().getMessage();
                 Toast.makeText(this, errorStr, Toast.LENGTH_SHORT).show();
-            }else if(loginResult.wasCancelled()){
+            } else if (loginResult.wasCancelled()) {
                 String toastMessage = "Login Canceled";
                 Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 String authCode = loginResult.getAuthorizationCode();
 
+                Intent intent = new Intent(this, AuthActivity.class);
+                intent.putExtra(AuthActivity.AUTH_EXTRA, authCode);
+
+
+                startActivityForResult(intent, AUTH_ACTIVITY);
+
                 //send this token to my server
-                Timber.e(authCode);
+                Timber.d(authCode);
+            }
+        }else if (requestCode == AUTH_ACTIVITY){
+            switch (data.getAction()){
+                case AuthActivity.AUTH_ERROR:
+                    Toast.makeText(WelcomeActivity.this, "error occurred", Toast.LENGTH_SHORT).show();
+                    break;
+                case AuthActivity.AUTH_SUCCESS:
+                    Toast.makeText(WelcomeActivity.this, "All is good", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     }

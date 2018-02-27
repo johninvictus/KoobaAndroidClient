@@ -3,6 +3,7 @@ package com.invictus.nkoba.nkoba.di.component;
 import android.app.Application;
 
 import com.invictus.nkoba.nkoba.KoobaApp;
+import com.invictus.nkoba.nkoba.di.module.ActivityBuilder;
 import com.invictus.nkoba.nkoba.di.module.AppModule;
 
 import javax.inject.Singleton;
@@ -18,13 +19,16 @@ import dagger.android.AndroidInjectionModule;
 @Singleton
 @Component(modules = {
         AndroidInjectionModule.class,
-        AppModule.class
+        AppModule.class,
+        ActivityBuilder.class
 })
 public interface AppComponent {
+
     @Component.Builder
     interface Builder{
         @BindsInstance
         Builder application(Application application);
+
         AppComponent build();
     }
 

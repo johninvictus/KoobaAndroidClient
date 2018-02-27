@@ -37,8 +37,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.MainActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:launchMode="singleTop" />
 
         <!--onboarding feature-->
         <activity android:name=".ui.activities.OnboardingActivity" />
@@ -71,11 +72,16 @@
         <activity android:name="com.facebook.accountkit.ui.AccountKitEmailRedirectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/ak_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activities.AuthActivity" />
+        
     </application>
 
 </manifest>

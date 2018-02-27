@@ -25,8 +25,7 @@ public class AppInjector {
     public static void init(KoobaApp koobaApp) {
         DaggerAppComponent.builder()
                 .application(koobaApp)
-                .build()
-                .inject(koobaApp);
+                .build().inject(koobaApp);
 
         koobaApp.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
