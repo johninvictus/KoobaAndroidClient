@@ -81,6 +81,8 @@
         </activity>
 
         <activity android:name=".ui.activities.AuthActivity" />
+
+        <activity android:name=".ui.activities.EnterCredentialsActivity"/>
         
     </application>
 

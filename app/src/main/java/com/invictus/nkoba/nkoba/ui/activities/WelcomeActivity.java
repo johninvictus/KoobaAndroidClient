@@ -43,7 +43,13 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         rippleView = findViewById(R.id.login_register_btn);
-        rippleView.setOnRippleCompleteListener(rippleView1 -> onLogin(LoginType.PHONE));
+//        rippleView.setOnRippleCompleteListener(rippleView1 -> onLogin(LoginType.PHONE));
+        rippleView.setOnRippleCompleteListener(rippleView1 -> startDetailsActivity());
+    }
+
+    private void startDetailsActivity() {
+        Intent intent = new Intent(this, EnterCredentialsActivity.class);
+        startActivity(intent);
     }
 
 
@@ -93,8 +99,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 //send this token to my server
                 Timber.d(authCode);
             }
-        }else if (requestCode == AUTH_ACTIVITY){
-            switch (data.getAction()){
+        } else if (requestCode == AUTH_ACTIVITY) {
+            switch (data.getAction()) {
                 case AuthActivity.AUTH_ERROR:
                     Toast.makeText(WelcomeActivity.this, "error occurred", Toast.LENGTH_SHORT).show();
                     break;

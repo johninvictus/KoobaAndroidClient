@@ -1,6 +1,7 @@
 package com.invictus.nkoba.nkoba.di.module;
 
 import com.invictus.nkoba.nkoba.ui.activities.AuthActivity;
+import com.invictus.nkoba.nkoba.ui.activities.EnterCredentialsActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -14,4 +15,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract AuthActivity bindAuthActivity();
+
+    @ContributesAndroidInjector
+    abstract EnterCredentialsActivity binndEnterCredentialsActivity();
 }
