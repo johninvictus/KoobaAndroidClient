@@ -1,7 +1,9 @@
 package com.invictus.nkoba.nkoba.di.module;
 
+import com.invictus.nkoba.nkoba.ui.SplashActivity;
 import com.invictus.nkoba.nkoba.ui.activities.AuthActivity;
 import com.invictus.nkoba.nkoba.ui.activities.EnterCredentialsActivity;
+import com.invictus.nkoba.nkoba.ui.activities.WelcomeActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -17,5 +19,11 @@ public abstract class ActivityBuilder {
     abstract AuthActivity bindAuthActivity();
 
     @ContributesAndroidInjector
-    abstract EnterCredentialsActivity binndEnterCredentialsActivity();
+    abstract EnterCredentialsActivity bindEnterCredentialsActivity();
+
+    @ContributesAndroidInjector
+    abstract WelcomeActivity bindWelcomeActivity();
+
+    @ContributesAndroidInjector
+    abstract SplashActivity bindSplashActivity();
 }

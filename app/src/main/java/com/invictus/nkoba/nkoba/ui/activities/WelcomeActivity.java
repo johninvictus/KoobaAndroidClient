@@ -1,5 +1,6 @@
 package com.invictus.nkoba.nkoba.ui.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,33 +19,48 @@ import com.facebook.accountkit.PhoneNumber;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
+import com.google.gson.Gson;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.invictus.nkoba.nkoba.R;
+import com.invictus.nkoba.nkoba.models.SessionResponse;
+import com.invictus.nkoba.nkoba.utils.SessionManager;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import timber.log.Timber;
 
 /**
  * Created by invictus on 1/5/18.
  */
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity implements HasActivityInjector {
 
     private static final int APP_REQUEST_CODE = 1;
     private static final int AUTH_ACTIVITY = 2;
     RippleView rippleView;
 
+    @Inject
+    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+
+    @Inject
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
         rippleView = findViewById(R.id.login_register_btn);
-//        rippleView.setOnRippleCompleteListener(rippleView1 -> onLogin(LoginType.PHONE));
-        rippleView.setOnRippleCompleteListener(rippleView1 -> startDetailsActivity());
+        rippleView.setOnRippleCompleteListener(rippleView1 -> onLogin(LoginType.PHONE));
     }
 
     private void startDetailsActivity() {
@@ -106,9 +122,30 @@ public class WelcomeActivity extends AppCompatActivity {
                     break;
                 case AuthActivity.AUTH_SUCCESS:
                     Toast.makeText(WelcomeActivity.this, "All is good", Toast.LENGTH_SHORT).show();
+                    successLogin(data);
                     break;
             }
         }
+    }
+
+    private void successLogin(Intent data) {
+        String responseJson = data.getStringExtra(AuthActivity.AUTH_RESPONSE);
+        //create Object
+
+        SessionResponse sessionResponse = new Gson()
+                .fromJson(responseJson, SessionResponse.class);
+
+        //get the token and save it into shared preferences
+        String token = sessionResponse.getMeta().getToken();
+        sessionManager.setLogin(token, sessionResponse.getUserDetailsProvided());
+
+        if (sessionResponse.getUserDetailsProvided() == false) {
+            EnterCredentialsActivity.startActivity(this);
+            return;
+        }
+
+        // start the main Activity
+        MainActivity.startActivity(this);
     }
 
     // client authorization
@@ -151,5 +188,11 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         return phoneNumber;
+    }
+
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return activityDispatchingAndroidInjector;
+
     }
 }

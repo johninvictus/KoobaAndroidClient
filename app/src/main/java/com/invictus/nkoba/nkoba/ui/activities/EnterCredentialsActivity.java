@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -126,6 +127,10 @@ public class EnterCredentialsActivity extends AppCompatActivity
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return activityDispatchingAndroidInjector;
+    }
 
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, EnterCredentialsActivity.class);
+        context.startActivity(intent);
     }
 }

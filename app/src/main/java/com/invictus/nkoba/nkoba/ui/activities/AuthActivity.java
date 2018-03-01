@@ -84,8 +84,7 @@ public class AuthActivity extends AppCompatActivity implements HasActivityInject
                         }
 
                         String responseJson = new Gson().toJson(response.body());
-                        SessionResponse sessionResponse = new Gson()
-                                .fromJson(responseJson, SessionResponse.class);
+
 
 
                         // add all these to database
