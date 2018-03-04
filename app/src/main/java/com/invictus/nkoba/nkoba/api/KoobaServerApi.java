@@ -1,10 +1,15 @@
 package com.invictus.nkoba.nkoba.api;
 
+import com.invictus.nkoba.nkoba.models.Credentials;
+import com.invictus.nkoba.nkoba.models.CredentialsResponse;
+
 import io.reactivex.Flowable;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -19,4 +24,9 @@ public interface KoobaServerApi {
     @FormUrlEncoded
     @POST("sessions")
     Flowable<Response<Object>> authenticate(@Field("authorization_code") String auth);
+
+    @POST("user/credentials")
+    Flowable<Response<Object>> postUpdateCredentials(@Body CredentialsResponse credentials);
+
+
 }

@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.invictus.nkoba.nkoba.BuildConfig;
 import com.invictus.nkoba.nkoba.api.AuthInterceptor;
 import com.invictus.nkoba.nkoba.utils.AppConstants;
+import com.invictus.nkoba.nkoba.utils.SessionManager;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -45,8 +46,8 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Interceptor providesInterceptor() {
-        return new AuthInterceptor();
+    Interceptor providesInterceptor(SessionManager manager) {
+        return new AuthInterceptor(manager.getAuthToken());
     }
 
     @Provides

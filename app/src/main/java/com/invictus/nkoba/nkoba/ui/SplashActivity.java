@@ -19,6 +19,7 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import timber.log.Timber;
 
 /**
  * Created by invictus on 1/3/18.
@@ -45,6 +46,7 @@ public class SplashActivity extends AppCompatActivity implements HasActivityInje
                 sessionManager.setOnBoardingShown(true);
                 OnboardingActivity.startActivity(this);
             } else if (sessionManager.isLoggedIn() && sessionManager.wasOnBoardingShown()) {
+                Timber.e(sessionManager.getAuthToken());
                 if (sessionManager.getIsDetailsProvided()) {
                     MainActivity.startActivity(SplashActivity.this);
                 } else {

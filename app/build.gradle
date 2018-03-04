@@ -85,6 +85,9 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
+    //validation library
+    compile 'com.mobsandgeeks:android-saripaar:2.0.3'
+
     //testing.
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

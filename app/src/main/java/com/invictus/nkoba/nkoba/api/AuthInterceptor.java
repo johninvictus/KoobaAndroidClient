@@ -20,22 +20,22 @@ public class AuthInterceptor implements Interceptor {
 
     private static final String LOG_TAG = AuthInterceptor.class.getSimpleName();
 
+    private String token;
 
-    public AuthInterceptor() {
-        // inject dagger here
+    public AuthInterceptor(String token) {
+        this.token = token;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
 
+        String value = "Bearer: " + token;
 
-        Request request = chain.request();
-        HttpUrl httpUrl = request.url()
+        Request request = chain.request()
                 .newBuilder()
-                .addQueryParameter(AppConstants.TOKEN_KEY_ENTRY, "")
+                .addHeader("Authorization", value)
                 .build();
 
-        request = request.newBuilder().url(httpUrl).build();
         return chain.proceed(request);
     }
 }
