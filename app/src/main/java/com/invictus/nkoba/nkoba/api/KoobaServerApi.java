@@ -28,5 +28,4 @@ public interface KoobaServerApi {
     @POST("user/credentials")
     Flowable<Response<Object>> postUpdateCredentials(@Body CredentialsResponse credentials);
 
-
 }

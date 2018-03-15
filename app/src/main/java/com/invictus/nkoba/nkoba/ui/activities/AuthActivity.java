@@ -76,27 +76,25 @@ public class AuthActivity extends AppCompatActivity implements HasActivityInject
                 .subscribe(new DisposableSubscriber<Response<Object>>() {
                     @Override
                     public void onNext(Response<Object> response) {
-                        if (response.code() != 200) {
-                            Intent intent = new Intent();
-                            intent.setAction(AUTH_ERROR);
-                            setResult(Activity.RESULT_OK, intent);
-                            finish();
-                        }
-
-                        String responseJson = new Gson().toJson(response.body());
-
-
-
-                        // add all these to database
-                        // user etc
-                        // check if user has provided details
-                        // set the logged in true and store token in preference
+                        if (response.code() == 200 || response.code() == 201) {
+                            String responseJson = new Gson().toJson(response.body());
                             Intent intent = new Intent();
                             intent.setAction(AUTH_SUCCESS);
                             intent.putExtra(AUTH_RESPONSE, responseJson);
 
                             setResult(Activity.RESULT_OK, intent);
                             finish();
+                        }
+
+                        Intent intent = new Intent();
+                        intent.setAction(AUTH_ERROR);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                        // add all these to database
+                        // user etc
+                        // check if user has provided details
+                        // set the logged in true and store token in preference
+
 
                     }
 
