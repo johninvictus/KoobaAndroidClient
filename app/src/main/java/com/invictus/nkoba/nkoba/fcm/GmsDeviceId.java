@@ -1,5 +1,7 @@
 package com.invictus.nkoba.nkoba.fcm;
 
+import android.util.Log;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -8,10 +10,12 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
  */
 
 public class GmsDeviceId extends FirebaseInstanceIdService {
+    private static final String LOG_TAG = GmsDeviceId.class.getSimpleName();
 
     @Override
     public void onTokenRefresh() {
         String device_token = FirebaseInstanceId.getInstance().getToken();
+        Log.e(LOG_TAG, device_token);
         sendToServer(device_token);
     }
 

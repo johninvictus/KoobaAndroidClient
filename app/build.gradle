@@ -90,7 +90,7 @@ dependencies {
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
 
     //firebase
-    compile 'com.google.firebase:firebase-messaging:11.6.0'
+    compile "com.google.firebase:firebase-messaging:$firebaseVersion"
 
     //testing.
     testImplementation 'junit:junit:4.12'
