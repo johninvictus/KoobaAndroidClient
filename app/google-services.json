@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "608973096829",
+    "firebase_url": "https://kooba-d315b.firebaseio.com",
+    "project_id": "kooba-d315b",
+    "storage_bucket": "kooba-d315b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608973096829:android:7709f51d1d8354ba",
+        "android_client_info": {
+          "package_name": "com.invictus.nkoba.nkoba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608973096829-nv981r7f6lt1u27aonhu7cdmohfq30qh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOIfse2eSCCU0-VRAuuHbyu9AOHzH3BFc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

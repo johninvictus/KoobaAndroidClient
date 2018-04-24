@@ -82,8 +82,21 @@
 
         <activity android:name=".ui.activities.AuthActivity" />
 
-        <activity android:name=".ui.activities.EnterCredentialsActivity"/>
-        
+        <activity android:name=".ui.activities.EnterCredentialsActivity" />
+
+        <service android:name=".fcm.GmsDeviceId">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>
