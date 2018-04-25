@@ -24,5 +24,6 @@ public class GmsDeviceId extends FirebaseInstanceIdService {
         //send the generated token to server
         // update the existing device
         // since it requires login, this method wont be used for now
+        // send if the user is login if not skip
     }
 }
