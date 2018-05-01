@@ -35,27 +35,25 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.support.DaggerAppCompatActivity;
 import timber.log.Timber;
 
 /**
  * Created by invictus on 1/5/18.
  */
 
-public class WelcomeActivity extends AppCompatActivity implements HasActivityInjector {
+public class WelcomeActivity extends DaggerAppCompatActivity {
 
     private static final int APP_REQUEST_CODE = 1;
     private static final int AUTH_ACTIVITY = 2;
-    RippleView rippleView;
 
-    @Inject
-    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+    RippleView rippleView;
 
     @Inject
     SessionManager sessionManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
@@ -109,6 +107,7 @@ public class WelcomeActivity extends AppCompatActivity implements HasActivityInj
                 Intent intent = new Intent(this, AuthActivity.class);
                 intent.putExtra(AuthActivity.AUTH_EXTRA, authCode);
 
+                Timber.e("facebook_code :: " + authCode);
 
                 startActivityForResult(intent, AUTH_ACTIVITY);
 
@@ -188,11 +187,5 @@ public class WelcomeActivity extends AppCompatActivity implements HasActivityInj
         }
 
         return phoneNumber;
-    }
-
-    @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return activityDispatchingAndroidInjector;
-
     }
 }

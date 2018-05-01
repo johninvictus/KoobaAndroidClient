@@ -11,6 +11,8 @@ import javax.inject.Singleton;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
+import dagger.android.AndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * Created by invictus on 2/24/18.
@@ -18,14 +20,14 @@ import dagger.android.AndroidInjectionModule;
 
 @Singleton
 @Component(modules = {
-        AndroidInjectionModule.class,
+        AndroidSupportInjectionModule.class,
         AppModule.class,
         ActivityBuilder.class
 })
-public interface AppComponent {
+public interface AppComponent extends AndroidInjector<KoobaApp> {
 
     @Component.Builder
-    interface Builder{
+    interface Builder {
         @BindsInstance
         Builder application(Application application);
 

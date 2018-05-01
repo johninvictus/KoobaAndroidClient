@@ -20,9 +20,14 @@ buildscript {
     }
 }
 
-ext.retrofitVersion = '2.3.0'
 ext.okhttpVersion = '3.4.1'
 ext.firebaseVersion = '11.6.0'
+ext.daggerVersion = '2.11'
+ext.archVersion = '1.0.0'
+ext.archRuntimeVersion = '1.1.1'
+ext.archExtensionVersion = '1.1.1'
+ext.retrofitVersion = '2.3.0'
+ext.okhttpVersion = '3.4.1'
 
 
 allprojects {

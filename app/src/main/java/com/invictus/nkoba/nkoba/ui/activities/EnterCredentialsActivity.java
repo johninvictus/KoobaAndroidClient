@@ -51,18 +51,16 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import retrofit2.Response;
 import timber.log.Timber;
 
-/**
- * Created by invictus on 2/28/18.
- */
 
-public class EnterCredentialsActivity extends AppCompatActivity
-        implements DatePickerDialog.OnDateSetListener, HasActivityInjector, Validator.ValidationListener {
+public class EnterCredentialsActivity extends DaggerAppCompatActivity
+        implements DatePickerDialog.OnDateSetListener, Validator.ValidationListener {
 
     private Toolbar toolbar;
 
@@ -88,13 +86,10 @@ public class EnterCredentialsActivity extends AppCompatActivity
     @Inject
     SessionManager sessionManager;
 
-    @Inject
-    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
     private Validator validator;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_credentials);
 
@@ -168,11 +163,6 @@ public class EnterCredentialsActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return activityDispatchingAndroidInjector;
-    }
-
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, EnterCredentialsActivity.class);
         context.startActivity(intent);
@@ -217,7 +207,7 @@ public class EnterCredentialsActivity extends AppCompatActivity
                             sessionManager.setDetailsProvided(true);
 
                             MainActivity.startActivity(EnterCredentialsActivity.this);
-                             finish();
+                            finish();
 
                         } else {
                             Toast.makeText(EnterCredentialsActivity.this,

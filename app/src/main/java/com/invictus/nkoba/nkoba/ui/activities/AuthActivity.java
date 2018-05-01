@@ -26,11 +26,8 @@ import io.reactivex.subscribers.DisposableSubscriber;
 import retrofit2.Response;
 import timber.log.Timber;
 
-/**
- * Created by invictus on 2/26/18.
- */
 
-public class AuthActivity extends AppCompatActivity implements HasActivityInjector {
+public class AuthActivity extends DaggerAppCompatActivity {
 
 
     public static final String AUTH_EXTRA = "auth_extra";
@@ -42,9 +39,6 @@ public class AuthActivity extends AppCompatActivity implements HasActivityInject
 
 
     @Inject
-    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
-
-    @Inject
     KoobaServerApi koobaServerApi;
 
     /**
@@ -54,7 +48,6 @@ public class AuthActivity extends AppCompatActivity implements HasActivityInject
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
@@ -112,11 +105,5 @@ public class AuthActivity extends AppCompatActivity implements HasActivityInject
                     public void onComplete() {
                     }
                 });
-    }
-
-    @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return activityDispatchingAndroidInjector;
-
     }
 }

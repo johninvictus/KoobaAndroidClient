@@ -1,25 +1,18 @@
 package com.invictus.nkoba.nkoba;
 
-import android.app.Activity;
-import android.app.Application;
-
-import com.invictus.nkoba.nkoba.di.AppInjector;
-
-import javax.inject.Inject;
+import com.invictus.nkoba.nkoba.di.component.AppComponent;
+import com.invictus.nkoba.nkoba.di.component.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
+import dagger.android.support.DaggerApplication;
 import timber.log.Timber;
 
 /**
  * Created by invictus on 1/2/18.
  */
 
-public class KoobaApp extends Application implements HasActivityInjector {
+public class KoobaApp extends DaggerApplication {
 
-    @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -30,12 +23,16 @@ public class KoobaApp extends Application implements HasActivityInjector {
         } else {
             // will add CrashReportingTree
         }
-
-        AppInjector.init(this);
     }
 
     @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        AppComponent appComponent = DaggerAppComponent
+                .builder()
+                .application(this)
+                .build();
+
+        appComponent.inject(this);
+        return appComponent;
     }
 }
