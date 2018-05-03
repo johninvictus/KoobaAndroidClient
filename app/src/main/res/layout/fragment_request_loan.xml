@@ -55,7 +55,8 @@
                         android:fontFamily="@font/source_sanspro_black"
                         android:text=" KSH 227"
                         android:textColor="@color/colorAccent"
-                        android:textSize="26sp" />
+                        android:textSize="26sp"
+                        android:id="@+id/loan_limit_price"/>
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -28,4 +28,7 @@ public interface KoobaServerApi {
     @POST("user/credentials")
     Flowable<Response<Object>> postUpdateCredentials(@Body CredentialsResponse credentials);
 
+    @GET("kooba/state")
+    Flowable<Response<Object>> getKoobaState();
+
 }

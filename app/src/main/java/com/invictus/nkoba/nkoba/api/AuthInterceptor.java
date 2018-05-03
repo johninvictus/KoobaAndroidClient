@@ -12,6 +12,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import timber.log.Timber;
 
 /**
  * Created by invictus on 2/24/18.
@@ -35,7 +36,7 @@ public class AuthInterceptor implements Interceptor {
                 .newBuilder()
                 .addHeader("Authorization", value)
                 .build();
-
+        Timber.e(value);
         return chain.proceed(request);
     }
 }
