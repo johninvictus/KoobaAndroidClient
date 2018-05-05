@@ -49,14 +49,14 @@
                         android:textSize="21sp" />
 
                     <TextView
+                        android:id="@+id/loan_limit_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/source_sanspro_black"
                         android:text=" KSH 227"
                         android:textColor="@color/colorAccent"
-                        android:textSize="26sp"
-                        android:id="@+id/loan_limit_price"/>
+                        android:textSize="26sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -107,10 +107,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="KES 0"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:id="@+id/show_intended_loan"/>
 
                     <SeekBar
+                        android:id="@+id/loan_request_amount_seekbar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -126,46 +127,45 @@
                         android:textSize="16sp" />
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/payments_setting_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:dropDownWidth="match_parent"
-                        android:entries="@array/payment_schedule"
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
 
                     <com.andexert.library.RippleView
                         rv_centered="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_gravity="center"
                         app:rv_rippleDuration="200">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:clickable="true">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/source_sans_pro_regular"
-                            android:text="LOAN DETAILS"
-                            android:layout_gravity="center"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="14sp" />
-
-                        <ImageView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            app:srcCompat="@drawable/right_arrow" />
-                    </LinearLayout>
+                            android:clickable="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/source_sans_pro_regular"
+                                android:text="LOAN DETAILS"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                app:srcCompat="@drawable/right_arrow" />
+                        </LinearLayout>
                     </com.andexert.library.RippleView>
 
                     <com.andexert.library.RippleView

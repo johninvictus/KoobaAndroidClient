@@ -9,18 +9,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 import com.google.gson.Gson;
 import com.invictus.nkoba.nkoba.R;
+import com.invictus.nkoba.nkoba.adapters.PaymentSettingAdapter;
 import com.invictus.nkoba.nkoba.api.KoobaServerApi;
 import com.invictus.nkoba.nkoba.events.RequestButtonClicked;
+import com.invictus.nkoba.nkoba.models.Amount;
+import com.invictus.nkoba.nkoba.models.LoanSetting;
 import com.invictus.nkoba.nkoba.models.StateResponse;
 import com.invictus.nkoba.nkoba.ui.activities.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -49,6 +57,17 @@ public class RequestLoanFragment extends Fragment {
     @BindView(R.id.loan_limit_price)
     TextView loanLimitTextView;
 
+    @BindView(R.id.payments_setting_spinner)
+    Spinner paymentSettingSpinner;
+
+    @BindView(R.id.loan_request_amount_seekbar)
+    SeekBar loanAmountSeekBar;
+
+    @BindView(R.id.show_intended_loan)
+    TextView showIntendeLoanTextView;
+
+    PaymentSettingAdapter adapter;
+    private StateResponse stateResponse;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,14 +103,14 @@ public class RequestLoanFragment extends Fragment {
                     public void onNext(Response<Object> response) {
                         if (response.code() == 200 || response.code() == 201) {
                             String responseJson = new Gson().toJson(response.body());
-                            StateResponse stateResponse = new Gson()
+                            stateResponse = new Gson()
                                     .fromJson(responseJson, StateResponse.class);
-
-                            Timber.e(responseJson);
 
                             int cash = stateResponse.getData().getLoanLimit().getAmount().getCents() / 100;
 
                             loanLimitTextView.setText("KSH " + cash);
+                            setSpinnerAdapter(0);
+                            setupSeekbar();
                         }
 //                        getActivity().finish();
                     }
@@ -105,6 +124,53 @@ public class RequestLoanFragment extends Fragment {
                     public void onComplete() {
                     }
                 });
+    }
+
+    private void setSpinnerAdapter(int amountCents) {
+
+        List<LoanSetting> filtedTemp = new ArrayList<>();
+
+        for (LoanSetting setting : stateResponse.getData().getLoanSettings()) {
+            if (setting.getMinAmount().getCents() <= amountCents) {
+                filtedTemp.add(setting);
+            }
+        }
+
+        adapter = new PaymentSettingAdapter(getActivity(),
+                R.layout.payments_setting_spinner_layout, filtedTemp);
+        paymentSettingSpinner.setAdapter(adapter);
+    }
+
+    int loanMeAmount = 0;
+
+    private void setupSeekbar() {
+        loanAmountSeekBar.setMax(100);
+        Amount amount = stateResponse.getData().getLoanLimit().getAmount();
+
+        float limit = amount.getCents() / 100;
+        float oneTickValue = limit / 100;
+
+        showIntendeLoanTextView
+                .setText(amount.getCurrency() + " " + 0);
+
+        loanAmountSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                loanMeAmount = Math.round(i * oneTickValue);
+                showIntendeLoanTextView
+                        .setText(amount.getCurrency() + " " + loanMeAmount);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                setSpinnerAdapter((loanMeAmount * 100));
+            }
+        });
     }
 
     @Override

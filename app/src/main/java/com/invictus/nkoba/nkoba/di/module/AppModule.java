@@ -14,9 +14,9 @@ import retrofit2.Retrofit;
 
 @Module(includes = {
         ViewModelModule.class,
+        SessionManagerModule.class,
         NetworkModule.class,
-        StorageModule.class,
-        SessionManagerModule.class
+        StorageModule.class
 })
 public class AppModule {
     /***
