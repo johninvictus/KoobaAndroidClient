@@ -11,6 +11,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by invictus on 2/25/18.
@@ -31,4 +32,6 @@ public interface KoobaServerApi {
     @GET("kooba/state")
     Flowable<Response<Object>> getKoobaState();
 
+    @POST("loan/request")
+    Flowable<Response<Object>> requestLoan(@Query("payment_period_id") int settingId, @Query("amount_string") String amountString);
 }

@@ -54,4 +54,8 @@ public class PaymentSettingAdapter extends ArrayAdapter<LoanSetting> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         return createItemView(position, convertView, parent);
     }
+
+    public LoanSetting getItem(int position) {
+        return items.get(position);
+    }
 }

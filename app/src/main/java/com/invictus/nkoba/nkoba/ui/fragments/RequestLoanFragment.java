@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import com.invictus.nkoba.nkoba.models.Amount;
 import com.invictus.nkoba.nkoba.models.LoanSetting;
 import com.invictus.nkoba.nkoba.models.StateResponse;
 import com.invictus.nkoba.nkoba.ui.activities.MainActivity;
+import com.invictus.nkoba.nkoba.ui.dialog.SearchCustomDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -70,8 +73,13 @@ public class RequestLoanFragment extends Fragment {
     @BindView(R.id.request_btn)
     AppCompatButton requestAppCompatButton;
 
+
+    DialogFragment dialogFragment;
+
     PaymentSettingAdapter adapter;
     private StateResponse stateResponse;
+    private LoanSetting loanSetting = null;
+    int loanMeAmount = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +91,9 @@ public class RequestLoanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        dialogFragment = SearchCustomDialog.getInstance();
+        dialogFragment.setCancelable(false);
 
         requestBtn.setOnRippleCompleteListener(e -> {
             if (requestAppCompatButton.isEnabled()) {
@@ -100,9 +111,8 @@ public class RequestLoanFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_request_loan, container, false);
     }
 
-    @OnClick(R.id.request_btn)
     public void requestBtnEvent() {
-        EventBus.getDefault().post(new RequestButtonClicked());
+        requestLoan(loanSetting.getId(), loanMeAmount);
     }
 
 
@@ -150,9 +160,20 @@ public class RequestLoanFragment extends Fragment {
         adapter = new PaymentSettingAdapter(getActivity(),
                 R.layout.payments_setting_spinner_layout, filtedTemp);
         paymentSettingSpinner.setAdapter(adapter);
+
+        paymentSettingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loanSetting = adapter.getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                loanSetting = adapter.getItem(0);
+            }
+        });
     }
 
-    int loanMeAmount = 0;
 
     private void setupSeekbar() {
         loanAmountSeekBar.setMax(100);
@@ -174,7 +195,6 @@ public class RequestLoanFragment extends Fragment {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
@@ -191,9 +211,53 @@ public class RequestLoanFragment extends Fragment {
         });
     }
 
+    private void requestLoan(int loanSettingId, int amount) {
+        String amoutString = amount + ".00";
+        dialogFragment.show(getFragmentManager(), "fragment");
+
+        koobaServerApi.requestLoan(loanSettingId, amoutString)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new DisposableSubscriber<Response<Object>>() {
+                    @Override
+                    public void onNext(Response<Object> response) {
+                        String responseJson = new Gson().toJson(response.body());
+                        Timber.e(responseJson);
+                        int code = response.code();
+                        if (code == 200) {
+                            startLoanHistoryFragment();
+                        } else if (code == 422) {
+                            message("You might have another pending loan or you have not provided all fields");
+
+                        } else if (code == 500) {
+                            message("An error occured internally, please try again later");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        dialogFragment.dismiss();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        dialogFragment.dismiss();
+                        Timber.e("On complete ");
+                    }
+                });
+    }
+
     @Override
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
+    }
+
+    private void startLoanHistoryFragment() {
+        EventBus.getDefault().post(new RequestButtonClicked());
+    }
+
+    private void message(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 }
