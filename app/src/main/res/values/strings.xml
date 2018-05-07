@@ -30,6 +30,7 @@
     </string-array>
 
     <string name="ak_login_protocol_scheme">ak588042518246985</string>
+    <string name="preference_file_key">kooba_preferences</string>
 
 
 </resources>

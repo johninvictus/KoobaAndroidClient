@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,9 @@ public class RequestLoanFragment extends Fragment {
     @BindView(R.id.show_intended_loan)
     TextView showIntendeLoanTextView;
 
+    @BindView(R.id.request_btn)
+    AppCompatButton requestAppCompatButton;
+
     PaymentSettingAdapter adapter;
     private StateResponse stateResponse;
 
@@ -79,8 +83,14 @@ public class RequestLoanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-        requestBtn.setOnRippleCompleteListener(e -> sendClickEvent());
+        requestAppCompatButton.setEnabled(false);
+        requestBtn.setOnRippleCompleteListener(e -> {
+            if (requestAppCompatButton.isEnabled()) {
+                requestBtnEvent();
+            } else {
+                Toast.makeText(getActivity(), "Please give loan amount", Toast.LENGTH_SHORT).show();
+            }
+        });
         fetchLimit();
     }
 
@@ -90,7 +100,8 @@ public class RequestLoanFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_request_loan, container, false);
     }
 
-    private void sendClickEvent() {
+    @OnClick(R.id.request_btn)
+    public void requestBtnEvent() {
         EventBus.getDefault().post(new RequestButtonClicked());
     }
 

@@ -138,6 +138,8 @@ public class WelcomeActivity extends DaggerAppCompatActivity {
         String token = sessionResponse.getMeta().getToken();
         sessionManager.setLogin(token, sessionResponse.getUserDetailsProvided());
 
+        Timber.e("Token at successLogin :: " + token);
+
         if (sessionResponse.getUserDetailsProvided() == false) {
             EnterCredentialsActivity.startActivity(this);
             return;

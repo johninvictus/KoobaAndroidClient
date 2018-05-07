@@ -47,7 +47,7 @@ public class NetworkModule {
     @Provides
     @Singleton
     Interceptor providesInterceptor(SessionManager manager) {
-        return new AuthInterceptor(manager.getAuthToken());
+        return new AuthInterceptor(manager);
     }
 
     @Provides

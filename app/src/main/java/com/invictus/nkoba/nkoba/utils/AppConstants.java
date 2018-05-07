@@ -25,7 +25,7 @@ public class AppConstants {
     public static final String TOKEN_KEY_ENTRY = "api_key";
 
     public static final String KEY_IS_LOGGEDIN = "logged_key";
-    public static final String KEY_TOKEN = "token_key";
+    public static final String KEY_TOKEN = "token_pref_key";
     public static final String KEY_TIME = "time_key";
     public static final String KEY_DETAILS_PROVIDED = "details_provided_key";
 

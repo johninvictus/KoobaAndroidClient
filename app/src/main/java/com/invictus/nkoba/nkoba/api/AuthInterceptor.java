@@ -1,6 +1,9 @@
 package com.invictus.nkoba.nkoba.api;
 
+import android.content.SharedPreferences;
+
 import com.invictus.nkoba.nkoba.utils.AppConstants;
+import com.invictus.nkoba.nkoba.utils.SessionManager;
 
 import okhttp3.Interceptor;
 
@@ -21,16 +24,16 @@ public class AuthInterceptor implements Interceptor {
 
     private static final String LOG_TAG = AuthInterceptor.class.getSimpleName();
 
-    private String token;
+    private SessionManager sessionManager;
 
-    public AuthInterceptor(String token) {
-        this.token = token;
+    public AuthInterceptor(SessionManager manager) {
+        this.sessionManager = manager;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        String value = "Bearer: " + token;
+        String value = "Bearer: " + sessionManager.getAuthToken();
 
         Request request = chain.request()
                 .newBuilder()

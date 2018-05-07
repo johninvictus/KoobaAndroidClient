@@ -84,10 +84,4 @@ public class SplashActivity extends DaggerAppCompatActivity {
                 POST_DELAY);
     }
 
-
-
-
-    private void fetchLoanPayments() {
-
-    }
 }
