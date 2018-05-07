@@ -83,7 +83,7 @@ public class RequestLoanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        requestAppCompatButton.setEnabled(false);
+
         requestBtn.setOnRippleCompleteListener(e -> {
             if (requestAppCompatButton.isEnabled()) {
                 requestBtnEvent();
@@ -179,7 +179,14 @@ public class RequestLoanFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                setSpinnerAdapter((loanMeAmount * 100));
+                int temp = loanMeAmount * 100;
+                setSpinnerAdapter(temp);
+
+                if (temp >= 10000) {
+                    requestAppCompatButton.setEnabled(true);
+                } else {
+                    requestAppCompatButton.setEnabled(false);
+                }
             }
         });
     }

@@ -181,6 +181,7 @@
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             android:text="Request"
                             android:textColor="#ffff"
+                            android:enabled="false"
                             android:id="@+id/request_btn"
                             />
                     </com.andexert.library.RippleView>
