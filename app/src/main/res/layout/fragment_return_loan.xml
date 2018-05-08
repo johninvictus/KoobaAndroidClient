@@ -20,15 +20,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/green_color"
-                android:orientation="vertical">
+                android:background="#01a7bc"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="14dp"
+                    app:srcCompat="@drawable/ic_info_round_drawable" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/source_sanspro_black"
-                    android:padding="16dp"
+                    android:padding="14dp"
                     android:text="Loan waiting Approval"
                     android:textColor="@android:color/white" />
             </LinearLayout>
@@ -75,6 +82,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/principal_loan_textview"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="KSH 527"
@@ -106,6 +114,7 @@
 
 
                             <TextView
+                                android:id="@+id/next_loan_payment_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -128,16 +137,19 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="Loan owed: " />
 
                         <TextView
+                            android:id="@+id/load_remaining_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="KSH 500" />
 
                     </LinearLayout>
@@ -168,12 +180,12 @@
 
                         <android.support.design.widget.TabLayout
                             android:id="@+id/tabs"
-                            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             app:tabGravity="fill"
-                            app:tabMode="scrollable" />
+                            app:tabMode="scrollable"
+                            app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />
 
                     </LinearLayout>
 
@@ -185,12 +197,14 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/currency_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="KSH" />
 
                         <TextView
+                            android:id="@+id/tab_loan_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -201,7 +215,7 @@
                     </LinearLayout>
 
                     <com.andexert.library.RippleView
-                        android:id="@+id/login_register_btn"
+                        android:id="@+id/pay_loan_rv"
                         rv_centered="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -209,6 +223,7 @@
                         app:rv_rippleDuration="300">
 
                         <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/pay_loan_btn"
                             style="@style/AppTheme.RoundedButtonStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

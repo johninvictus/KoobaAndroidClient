@@ -1,5 +1,6 @@
 package com.invictus.nkoba.nkoba.ui.fragments;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.invictus.nkoba.nkoba.R;
 
 import java.util.ArrayList;
+
+import dagger.android.support.AndroidSupportInjection;
 
 /**
  * Created by invictus on 1/6/18.
@@ -193,5 +196,11 @@ public class LoanReturnFragment extends Fragment {
             });
         }
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context);
     }
 }

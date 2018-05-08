@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.invictus.nkoba.nkoba.R;
 import com.invictus.nkoba.nkoba.ui.activities.MainActivity;
+import com.invictus.nkoba.nkoba.ui.fragments.LoanReturnFragment;
 import com.invictus.nkoba.nkoba.ui.fragments.RequestLoanFragment;
 
 import javax.inject.Inject;
@@ -27,6 +28,13 @@ public class MainNavigationController {
     public void navigateToRequestFragment() {
 
         Fragment fragment = new RequestLoanFragment();
+        fragmentManager.beginTransaction()
+                .replace(containerId, fragment)
+                .commitAllowingStateLoss();
+    }
+
+    public void navigateToLoanPaymentFragment() {
+        Fragment fragment = new LoanReturnFragment();
         fragmentManager.beginTransaction()
                 .replace(containerId, fragment)
                 .commitAllowingStateLoss();

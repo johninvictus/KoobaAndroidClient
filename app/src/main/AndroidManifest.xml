@@ -29,6 +29,7 @@
 
         <activity
             android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,12 +40,17 @@
 
         <activity
             android:name=".ui.activities.MainActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!--onboarding feature-->
-        <activity android:name=".ui.activities.OnboardingActivity" />
+        <activity
+            android:name=".ui.activities.OnboardingActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activities.WelcomeActivity" />
+        <activity
+            android:name=".ui.activities.WelcomeActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.facebook.accountkit.ui.AccountKitActivity"
@@ -53,7 +59,8 @@
 
         <activity
             android:name=".ui.activities.NotificationActivity"
-            android:parentActivityName=".ui.activities.MainActivity">
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:screenOrientation="portrait">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -62,7 +69,8 @@
 
         <activity
             android:name=".ui.activities.ProfileActivity"
-            android:parentActivityName=".ui.activities.MainActivity">
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:screenOrientation="portrait">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -80,9 +88,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.AuthActivity" />
+        <activity
+            android:name=".ui.activities.AuthActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activities.EnterCredentialsActivity" />
+        <activity
+            android:name=".ui.activities.EnterCredentialsActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".fcm.GmsDeviceId">
             <intent-filter>
