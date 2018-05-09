@@ -34,4 +34,7 @@ public interface KoobaServerApi {
 
     @POST("loan/request")
     Flowable<Response<Object>> requestLoan(@Query("payment_period_id") int settingId, @Query("amount_string") String amountString);
+
+    @GET("kooba/loan")
+    Flowable<Response<Object>> getLoanPayment();
 }

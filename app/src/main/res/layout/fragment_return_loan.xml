@@ -21,6 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#01a7bc"
+                android:visibility="gone"
+                android:id="@+id/pending_status_layout"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -82,7 +84,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/principal_loan_textview"
+                                android:id="@+id/principal_loan_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="KSH 527"
@@ -98,6 +100,7 @@
 
 
                             <TextView
+                                android:id="@+id/loan_interest_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -114,7 +117,7 @@
 
 
                             <TextView
-                                android:id="@+id/next_loan_payment_date"
+                                android:id="@+id/next_loan_payment_date_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -146,7 +149,7 @@
                             android:text="Loan owed: " />
 
                         <TextView
-                            android:id="@+id/load_remaining_tv"
+                            android:id="@+id/loan_remaining_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

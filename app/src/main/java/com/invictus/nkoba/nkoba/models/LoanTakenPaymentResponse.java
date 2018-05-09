@@ -4,17 +4,17 @@ package com.invictus.nkoba.nkoba.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class StateResponse {
+public class LoanTakenPaymentResponse {
 
     @SerializedName("data")
     @Expose
-    private LoanData data;
+    private Data data;
 
-    public LoanData getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(LoanData data) {
+    public void setData(Data data) {
         this.data = data;
     }
 

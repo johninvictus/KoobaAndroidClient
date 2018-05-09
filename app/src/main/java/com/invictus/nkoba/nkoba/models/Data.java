@@ -7,49 +7,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-    @SerializedName("suspension_info")
+    @SerializedName("loan_taken")
     @Expose
-    private SuspensionInfo suspensionInfo;
-    @SerializedName("loan_settings")
+    private LoanTaken loanTaken;
+    @SerializedName("loan_setting")
     @Expose
-    private List<LoanSetting> loanSettings = null;
-    @SerializedName("loan_limit")
+    private LoanSetting loanSetting;
+    @SerializedName("loan_payments")
     @Expose
-    private LoanLimit loanLimit;
-    @SerializedName("has_loan")
-    @Expose
-    private Boolean hasLoan;
+    private List<LoanPayment> loanPayments = null;
 
-    public SuspensionInfo getSuspensionInfo() {
-        return suspensionInfo;
+    public LoanTaken getLoanTaken() {
+        return loanTaken;
     }
 
-    public void setSuspensionInfo(SuspensionInfo suspensionInfo) {
-        this.suspensionInfo = suspensionInfo;
+    public void setLoanTaken(LoanTaken loanTaken) {
+        this.loanTaken = loanTaken;
     }
 
-    public List<LoanSetting> getLoanSettings() {
-        return loanSettings;
+    public LoanSetting getLoanSetting() {
+        return loanSetting;
     }
 
-    public void setLoanSettings(List<LoanSetting> loanSettings) {
-        this.loanSettings = loanSettings;
+    public void setLoanSetting(LoanSetting loanSetting) {
+        this.loanSetting = loanSetting;
     }
 
-    public LoanLimit getLoanLimit() {
-        return loanLimit;
+    public List<LoanPayment> getLoanPayments() {
+        return loanPayments;
     }
 
-    public void setLoanLimit(LoanLimit loanLimit) {
-        this.loanLimit = loanLimit;
-    }
-
-    public Boolean getHasLoan() {
-        return hasLoan;
-    }
-
-    public void setHasLoan(Boolean hasLoan) {
-        this.hasLoan = hasLoan;
+    public void setLoanPayments(List<LoanPayment> loanPayments) {
+        this.loanPayments = loanPayments;
     }
 
 }
