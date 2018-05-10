@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatButton;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -31,10 +34,12 @@ import com.invictus.nkoba.nkoba.models.LoanPayment;
 import com.invictus.nkoba.nkoba.models.LoanSetting;
 import com.invictus.nkoba.nkoba.models.LoanTaken;
 import com.invictus.nkoba.nkoba.models.LoanTakenPaymentResponse;
+import com.invictus.nkoba.nkoba.utils.DateTimeUtils;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -69,6 +74,22 @@ public class LoanReturnFragment extends Fragment {
     @BindView(R.id.pending_status_layout)
     LinearLayout pendingStatusLayout;
 
+    /*
+    * views for payment schedule card
+    * **/
+    @BindView(R.id.currency_tv)
+    TextView currencyTv;
+
+    @BindView(R.id.tab_loan_tv)
+    TextView tabLoanTv;
+
+    @BindView(R.id.pay_loan_rv)
+    RippleView payLoanRv;
+
+    @BindView(R.id.pay_loan_btn)
+    AppCompatButton payLoanBtn;
+
+
     @Inject
     KoobaServerApi koobaServerApi;
 
@@ -97,7 +118,7 @@ public class LoanReturnFragment extends Fragment {
         loanSchedue = view.findViewById(R.id.tabs);
 
         setUpPieChart();
-        setUpTabs();
+//        setUpTabs();
         fetchLoanPayments();
     }
 
@@ -295,8 +316,116 @@ public class LoanReturnFragment extends Fragment {
         pieChart.highlightValues(null);
 
         pieChart.invalidate();
+
+        /*
+        * setup tabs
+        * **/
+        setupLoanPaymentTabs(response);
     }
 
+
+    /**
+     * setup payment strip with data from the server
+     **/
+    private void setupLoanPaymentTabs(LoanTakenPaymentResponse response) {
+        /*
+        * Adding tabs
+        * **/
+        List<LoanPayment> loanPayments = response.getData().getLoanPayments();
+        for (LoanPayment payment : loanPayments) {
+            String tabDate = DateTimeUtils.parseDateTime(payment.getPaymentSchedue(), "dd-MM-yyyy", "dd MMM");
+            loanSchedue.addTab(loanSchedue.newTab().setText(tabDate));
+        }
+
+        /*
+        * Write logic to disable button and change text for prices
+        * **/
+
+
+
+        /*
+        * Set initial selected tab
+        * **/
+        int currentID = response.getData().getLoanTaken().getNextPaymentId();
+        int currentPosition = getCurrentPayablePayment(currentID, response.getData()
+                .getLoanPayments());
+
+
+        setDataOnPayLoanCard(loanPayments, currentPosition);
+
+        loanSchedue.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                setDataOnPayLoanCard(loanPayments, tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+
+    private void setDataOnPayLoanCard(List<LoanPayment> loanPayments, int position) {
+        LoanPayment payment = loanPayments.get(position);
+        loanSchedue.getTabAt(position).select();
+        currencyTv.setText(payment.getAmount().getCurrency());
+        int showPayment = getPaymentToShow(loanPayments, position);
+
+        tabLoanTv.setText(String.valueOf(showPayment));
+
+                /*
+                * Disable, enable, change text on button
+                * **/
+        if (showPayment > 0) {
+            payLoanBtn.setEnabled(true);
+            payLoanBtn.setText("Pay Loan");
+        } else {
+            payLoanBtn.setEnabled(false);
+            payLoanBtn.setText("Loan Payed");
+        }
+
+        payLoanRv.setOnRippleCompleteListener(l -> {
+            if(payLoanBtn.isEnabled()){
+
+                message("pay this amount "+ showPayment);
+            }else{
+                message("You already paid this amount");
+            }
+        });
+
+    }
+
+    private int getPaymentToShow(List<LoanPayment> payments, int position) {
+        int temp = 0;
+        for (int i = 0; i < payments.size(); i++) {
+            if (i <= position) {
+                LoanPayment payment = payments.get(i);
+                temp = temp + (payment.getPaymentRemaining().getCents() / 100);
+            }
+        }
+
+        return temp;
+    }
+
+    private int getCurrentPayablePayment(int id, List<LoanPayment> payments) {
+        int position = 0;
+
+        for (int i = 0; i < payments.size(); i++) {
+            LoanPayment x = payments.get(i);
+            if (x.getId().equals(id)) {
+                position = i;
+            }
+        }
+
+        return position;
+    }
 
     private void message(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();

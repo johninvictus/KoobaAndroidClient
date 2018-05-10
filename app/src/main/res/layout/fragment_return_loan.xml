@@ -18,12 +18,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/pending_status_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#01a7bc"
-                android:visibility="gone"
-                android:id="@+id/pending_status_layout"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -203,8 +203,7 @@
                             android:id="@+id/currency_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="KSH" />
+                            android:layout_gravity="center" />
 
                         <TextView
                             android:id="@+id/tab_loan_tv"
@@ -212,7 +211,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:fontFamily="@font/source_sanspro_black"
-                            android:text="200"
                             android:textSize="24sp" />
 
                     </LinearLayout>
@@ -223,7 +221,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
-                        app:rv_rippleDuration="300">
+                        app:rv_rippleDuration="200">
 
                         <android.support.v7.widget.AppCompatButton
                             android:id="@+id/pay_loan_btn"
