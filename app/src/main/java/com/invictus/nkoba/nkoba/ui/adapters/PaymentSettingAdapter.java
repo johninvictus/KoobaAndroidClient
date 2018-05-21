@@ -1,4 +1,4 @@
-package com.invictus.nkoba.nkoba.adapters;
+package com.invictus.nkoba.nkoba.ui.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.invictus.nkoba.nkoba.R;
 import com.invictus.nkoba.nkoba.models.LoanSetting;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

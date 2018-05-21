@@ -55,7 +55,7 @@ public class MainActivity extends DaggerAppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        navigationController.navigateToLoanPaymentFragment();
+        navigationController.navigateToRequestFragment();
 //        fetchLimit();
     }
 

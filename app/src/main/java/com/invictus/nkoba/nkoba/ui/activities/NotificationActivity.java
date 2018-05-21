@@ -3,7 +3,6 @@ package com.invictus.nkoba.nkoba.ui.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.invictus.nkoba.nkoba.R;
-import com.invictus.nkoba.nkoba.adapters.NotificationsAdapter;
+import com.invictus.nkoba.nkoba.ui.adapters.NotificationsAdapter;
 import com.invictus.nkoba.nkoba.models.NotificationModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by invictus on 1/9/18.

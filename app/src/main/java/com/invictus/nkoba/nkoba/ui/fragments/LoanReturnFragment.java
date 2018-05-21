@@ -333,8 +333,15 @@ public class LoanReturnFragment extends Fragment {
         * **/
         List<LoanPayment> loanPayments = response.getData().getLoanPayments();
         for (LoanPayment payment : loanPayments) {
-            String tabDate = DateTimeUtils.parseDateTime(payment.getPaymentSchedue(), "dd-MM-yyyy", "dd MMM");
-            loanSchedue.addTab(loanSchedue.newTab().setText(tabDate));
+
+
+            if (loanPayments.size() == 1) {
+                String tabDate = DateTimeUtils.parseDateTime(payment.getPaymentSchedue(), "dd-MM-yyyy", "dd MMM yyyy");
+                loanSchedue.addTab(loanSchedue.newTab().setText(tabDate));
+            } else {
+                String tabDate = DateTimeUtils.parseDateTime(payment.getPaymentSchedue(), "dd-MM-yyyy", "dd MMM");
+                loanSchedue.addTab(loanSchedue.newTab().setText(tabDate));
+            }
         }
 
         /*
@@ -392,10 +399,9 @@ public class LoanReturnFragment extends Fragment {
         }
 
         payLoanRv.setOnRippleCompleteListener(l -> {
-            if(payLoanBtn.isEnabled()){
-
-                message("pay this amount "+ showPayment);
-            }else{
+            if (payLoanBtn.isEnabled()) {
+                message("pay this amount " + showPayment);
+            } else {
                 message("You already paid this amount");
             }
         });

@@ -20,13 +20,13 @@ import android.widget.Toast;
 import com.andexert.library.RippleView;
 import com.google.gson.Gson;
 import com.invictus.nkoba.nkoba.R;
-import com.invictus.nkoba.nkoba.adapters.PaymentSettingAdapter;
+import com.invictus.nkoba.nkoba.ui.adapters.PaymentSettingAdapter;
 import com.invictus.nkoba.nkoba.api.KoobaServerApi;
 import com.invictus.nkoba.nkoba.events.RequestButtonClicked;
 import com.invictus.nkoba.nkoba.models.Amount;
 import com.invictus.nkoba.nkoba.models.LoanSetting;
 import com.invictus.nkoba.nkoba.models.StateResponse;
-import com.invictus.nkoba.nkoba.ui.activities.MainActivity;
+import com.invictus.nkoba.nkoba.ui.dialog.LoanDetailBottomSheetFragment;
 import com.invictus.nkoba.nkoba.ui.dialog.SearchCustomDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -259,5 +259,12 @@ public class RequestLoanFragment extends Fragment {
 
     private void message(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.open_loan_detail_btn)
+    public void openLoanDetail(){
+
+        LoanDetailBottomSheetFragment sheetFragment = new LoanDetailBottomSheetFragment();
+        sheetFragment.show(getActivity().getSupportFragmentManager(), sheetFragment.getTag());
     }
 }

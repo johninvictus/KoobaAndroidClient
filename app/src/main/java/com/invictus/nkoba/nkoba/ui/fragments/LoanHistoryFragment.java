@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.invictus.nkoba.nkoba.R;
-import com.invictus.nkoba.nkoba.adapters.LoanHistoryAdapter;
+import com.invictus.nkoba.nkoba.ui.adapters.LoanHistoryAdapter;
 import com.invictus.nkoba.nkoba.models.LoanHistoryModel;
 
 import java.util.ArrayList;
