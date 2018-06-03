@@ -5,6 +5,7 @@ import com.invictus.nkoba.nkoba.ui.SplashActivity;
 import com.invictus.nkoba.nkoba.ui.activities.AuthActivity;
 import com.invictus.nkoba.nkoba.ui.activities.EnterCredentialsActivity;
 import com.invictus.nkoba.nkoba.ui.activities.MainActivity;
+import com.invictus.nkoba.nkoba.ui.activities.NotificationActivity;
 import com.invictus.nkoba.nkoba.ui.activities.WelcomeActivity;
 
 import dagger.Module;
@@ -31,4 +32,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = MainFragmentModule.class)
     abstract MainActivity bindMainActivity();
+
+    @ContributesAndroidInjector
+    abstract NotificationActivity bindNotificationActivity();
 }

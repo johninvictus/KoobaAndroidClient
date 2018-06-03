@@ -38,14 +38,14 @@ public class LoanDetailBottomSheetFragment extends BottomSheetDialogFragment {
     private Unbinder unbinder;
     private LoanScheduesAdapter scheduesAdapter;
 
-    private final String AMOUNT_KEY = "LOAN_AMOUNT";
-    private final String LOAN_SETTING_KEY = "LOAN_SETTING";
+    private final static String AMOUNT_KEY = "LOAN_AMOUNT";
+    private final static String LOAN_SETTING_KEY = "LOAN_SETTING";
 
     public LoanDetailBottomSheetFragment() {
         //required empty constructor
     }
 
-    public LoanDetailBottomSheetFragment getInstance(int amount, LoanSetting setting) {
+    public static LoanDetailBottomSheetFragment getInstance(int amount, LoanSetting setting) {
         LoanDetailBottomSheetFragment fragment = new LoanDetailBottomSheetFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(AMOUNT_KEY, amount);
@@ -83,6 +83,11 @@ public class LoanDetailBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void setupUI() {
+        int amount = getArguments().getInt(AMOUNT_KEY);
+        LoanSetting setting = new Gson().fromJson(getArguments().getString(LOAN_SETTING_KEY), LoanSetting.class);
+
+
+
         scheduesAdapter = new LoanScheduesAdapter(getActivity(), new ArrayList<String>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(scheduesAdapter);

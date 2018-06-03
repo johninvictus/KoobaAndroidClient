@@ -2,7 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:progressActivity="http://schemas.android.com/tools">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,10 +22,41 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
+
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerview"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.vlonjatg.progressactivity.ProgressFrameLayout
+            android:id="@+id/progressActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            progressActivity:emptyBackgroundColor="@color/white"
+            progressActivity:emptyContentTextColor="@color/colorAccent"
+            progressActivity:emptyImageHeight="56dp"
+            progressActivity:emptyImageWidth="56dp"
+            progressActivity:emptyTitleTextColor="@color/colorAccent"
+            progressActivity:errorBackgroundColor="@color/white"
+            progressActivity:errorButtonBackgroundColor="@color/colorAccent"
+            progressActivity:errorButtonTextColor="#FFFFFF"
+            progressActivity:errorContentTextColor="@color/colorAccent"
+            progressActivity:errorImageHeight="56dp"
+            progressActivity:errorImageWidth="56dp"
+            progressActivity:errorTitleTextColor="@color/colorAccent"
+            progressActivity:loadingBackgroundColor="@color/white"
+            progressActivity:loadingProgressBarColor="@color/colorAccent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </com.vlonjatg.progressactivity.ProgressFrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>

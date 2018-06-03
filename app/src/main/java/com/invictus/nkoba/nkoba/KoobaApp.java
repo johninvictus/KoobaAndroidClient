@@ -1,9 +1,11 @@
 package com.invictus.nkoba.nkoba;
 
 import android.content.pm.ActivityInfo;
+import android.util.Log;
 
 import com.invictus.nkoba.nkoba.di.component.AppComponent;
 import com.invictus.nkoba.nkoba.di.component.DaggerAppComponent;
+import com.invictus.nkoba.nkoba.utils.NetworkUtils;
 
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
@@ -19,6 +21,7 @@ public class KoobaApp extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {

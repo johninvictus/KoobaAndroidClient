@@ -37,4 +37,7 @@ public interface KoobaServerApi {
 
     @GET("kooba/loan")
     Flowable<Response<Object>> getLoanPayment();
+
+    @GET("user/notifications")
+    Flowable<Response<Object>> getUserNotification(@Query("page") int page);
 }

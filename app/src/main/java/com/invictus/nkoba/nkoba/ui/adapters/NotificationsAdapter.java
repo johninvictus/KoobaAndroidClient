@@ -48,6 +48,18 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         return models.size();
     }
 
+
+    public void setRefreshData(List<NotificationModel> notifications) {
+        models.clear();
+        models.addAll(notifications);
+        notifyDataSetChanged();
+    }
+
+    public void setLoadingMoreData(List<NotificationModel> notifications) {
+        models.addAll(notifications);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView text_notification_date;
         TextView text_notification_description;
