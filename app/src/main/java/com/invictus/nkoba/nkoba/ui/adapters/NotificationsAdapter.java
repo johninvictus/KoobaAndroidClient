@@ -81,8 +81,9 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                         ContextCompat.getColor(timelineView.getContext(), R.color.colorAccent));
             }
 
-            text_notification_date.setText(DateTimeUtils.parseDateTime(model.getDate(),
-                    "yyyy-MM-dd HH:mm", "hh:mm a, dd-MMM-yyyy"));
+//            text_notification_date.setText(DateTimeUtils.parseDateTime(model.getDate(),
+//                    "yyyy-MM-dd HH:mm", "hh:mm a, dd-MMM-yyyy"));
+            text_notification_date.setText(model.getDate());
             text_notification_description.setText(model.getDescription());
         }
     }

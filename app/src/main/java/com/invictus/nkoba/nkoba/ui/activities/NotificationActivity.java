@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -64,15 +65,14 @@ public class NotificationActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
 
+        refreshLayout.setOnRefreshListener(onRefreshListener);
+
         setUpToolbar();
         setRecyclerView();
         initLayoutData();
-
-
     }
 
     private void initLayoutData() {
-        refreshLayout.setOnRefreshListener(onRefreshListener);
         loadData(1, true);
     }
 
@@ -128,14 +128,14 @@ public class NotificationActivity extends DaggerAppCompatActivity {
                                     new Gson().fromJson(responseJson, NotificationsResponse.class);
                             populateAdapter(notificationsResponse.getNotifications(), refreshing);
                         } else {
-                            // an error occurred do call error activity
+                            setMessageState("SERVER_ERROR");
                         }
                     }
 
                     @Override
                     public void onError(Throwable t) {
                         refreshLayout.setRefreshing(false);
-                        Toast.makeText(NotificationActivity.this, "An error occurred, retry feature here", Toast.LENGTH_SHORT).show();
+                        setMessageState("SERVER_ERROR");
                     }
 
                     @Override
@@ -146,6 +146,12 @@ public class NotificationActivity extends DaggerAppCompatActivity {
     }
 
     private void populateAdapter(List<Notification> notifications, boolean refreshing) {
+
+        if(notifications.size() == 0){
+            setMessageState("EMPTY");
+            return;
+        }
+
         List<NotificationModel> temp = new ArrayList<>();
         for (Notification notification : notifications) {
             temp.add(new NotificationModel(notification.getDate(),
@@ -157,6 +163,7 @@ public class NotificationActivity extends DaggerAppCompatActivity {
             adapter.setLoadingMoreData(temp);
         }
 
+        setMessageState("CONTENT");
     }
 
     private void setMessageState(String state){
@@ -178,11 +185,18 @@ public class NotificationActivity extends DaggerAppCompatActivity {
                 progressFrameLayout.showError(R.drawable.ic_server_connection_off,
                         "Server Error",
                         "We could not establish a connection with our servers. Please try again after some time",
-                        "Try Again", serverConnection);
+                        "Try Again", retryInternetConnection);
                 break;
             case "CONTENT":
                 progressFrameLayout.showContent();
                 break;
         }
     }
+
+    private View.OnClickListener retryInternetConnection = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            loadData(1, true);
+        }
+    };
 }
