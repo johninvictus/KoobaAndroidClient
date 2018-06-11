@@ -15,6 +15,11 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_loan_history"
+        android:title="Loan History"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_about"
         android:title="About"
         app:showAsAction="never" />

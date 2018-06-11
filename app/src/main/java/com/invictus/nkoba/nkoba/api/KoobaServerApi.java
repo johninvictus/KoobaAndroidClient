@@ -40,4 +40,10 @@ public interface KoobaServerApi {
 
     @GET("user/notifications")
     Flowable<Response<Object>> getUserNotification(@Query("page") int page);
+
+    @GET("user/loan_history")
+    Flowable<Response<Object>> getUserLoanHistory(@Query("page") int page);
+
+    @GET("user/profile")
+    Flowable<Response<Object>> getUserProfile(@Query("page") int page);
 }

@@ -46,7 +46,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/source_sanspro_black"
-                        android:text=" KSH 227"
                         android:textColor="@color/colorAccent"
                         android:textSize="26sp" />
 

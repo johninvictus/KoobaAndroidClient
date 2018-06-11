@@ -54,4 +54,5 @@
     <color name="btn_disabled">#665271dd</color>
 
     <color name="white">#fff</color>
+    <color name="semi_white">#f6f6f6</color>
 </resources>

@@ -1,24 +1,22 @@
 package com.invictus.nkoba.nkoba.ui.activities;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.invictus.nkoba.nkoba.R;
 import com.invictus.nkoba.nkoba.api.KoobaServerApi;
-import com.invictus.nkoba.nkoba.models.Notification;
-import com.invictus.nkoba.nkoba.models.NotificationModel;
-import com.invictus.nkoba.nkoba.models.NotificationsResponse;
-import com.invictus.nkoba.nkoba.ui.adapters.NotificationsAdapter;
+import com.invictus.nkoba.nkoba.models.LoanHistoryModel;
+import com.invictus.nkoba.nkoba.models.LoanHistoryResponse;
+import com.invictus.nkoba.nkoba.models.LoansTaken;
+import com.invictus.nkoba.nkoba.ui.adapters.LoanHistoryAdapter;
 import com.vlonjatg.progressactivity.ProgressFrameLayout;
 
 import java.util.ArrayList;
@@ -35,89 +33,55 @@ import io.reactivex.subscribers.DisposableSubscriber;
 import retrofit2.Response;
 
 /**
- * Created by invictus on 1/9/18.
+ * Created by invictus on 6/8/18.
  */
 
-public class NotificationActivity extends DaggerAppCompatActivity {
-
-    NotificationsAdapter adapter;
-    private ArrayList<NotificationModel> models = new ArrayList<>();
-
-    // TODO: add loading more logic
-
-    @Inject
-    KoobaServerApi koobaServerApi;
-
-    @BindView(R.id.swiperefresh)
-    SwipeRefreshLayout refreshLayout;
+public class LoanHistoryActivity extends DaggerAppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerView;
-
     @BindView(R.id.progressActivity)
     ProgressFrameLayout progressFrameLayout;
 
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.loan_taken_header)
+    LinearLayout loan_taken_header;
+
+    LoanHistoryAdapter adapter;
+
+    @Inject
+    KoobaServerApi koobaServerApi;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification);
+        setContentView(R.layout.activity_loan_history);
         ButterKnife.bind(this);
 
-        refreshLayout.setOnRefreshListener(onRefreshListener);
+        setupToolbar();
 
-        setUpToolbar();
-        setRecyclerView();
-        initLayoutData();
+        adapter = new LoanHistoryAdapter();
+        setUpRecyclerView();
+        loanFromApi(1, false);
     }
 
-    private void initLayoutData() {
-        loadData(1, true);
-    }
-
-    SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            loadData(1, true);
-        }
-    };
-
-
-    private void setUpToolbar() {
-        toolbar.setTitle("Notifications");
+    private void setupToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Loan History");
     }
 
-    private void setRecyclerView() {
-        adapter = new NotificationsAdapter(this, models);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    public void setUpRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public static void startActivity(Activity activity) {
-        activity.startActivity(new Intent(activity, NotificationActivity.class));
-    }
-
-
-    private void loadData(int page, boolean refreshing) {
-        refreshLayout.setRefreshing(true);
-        koobaServerApi.getUserNotification(page)
+    public void loanFromApi(int page, boolean loadMore) {
+        setMessageState("LOADING");
+        koobaServerApi.getUserLoanHistory(page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new DisposableSubscriber<Response<Object>>() {
@@ -125,9 +89,19 @@ public class NotificationActivity extends DaggerAppCompatActivity {
                     public void onNext(Response<Object> response) {
                         if (response.code() == 200 || response.code() == 201) {
                             String responseJson = new Gson().toJson(response.body());
-                            NotificationsResponse notificationsResponse =
-                                    new Gson().fromJson(responseJson, NotificationsResponse.class);
-                            populateAdapter(notificationsResponse.getNotifications(), refreshing);
+                            LoanHistoryResponse historyResponse = new Gson().fromJson(responseJson, LoanHistoryResponse.class);
+                            if(historyResponse.getLoansTaken().size() == 0){
+                                setMessageState("EMPTY");
+                            }else {
+                                // do something
+                                List<LoansTaken> loansTakens = historyResponse.getLoansTaken();
+                                if(loadMore){
+                                    adapter.addItems(loansTakens);
+                                }else {
+                                    adapter.provideNewData(loansTakens);
+                                }
+                                setMessageState("CONTENT");
+                            }
                         } else {
                             setMessageState("SERVER_ERROR");
                         }
@@ -135,47 +109,50 @@ public class NotificationActivity extends DaggerAppCompatActivity {
 
                     @Override
                     public void onError(Throwable t) {
-                        refreshLayout.setRefreshing(false);
                         setMessageState("SERVER_ERROR");
                     }
 
                     @Override
                     public void onComplete() {
-                        refreshLayout.setRefreshing(false);
+
                     }
                 });
     }
 
-    private void populateAdapter(List<Notification> notifications, boolean refreshing) {
 
-        if (notifications.size() == 0) {
-            setMessageState("EMPTY");
-            return;
-        }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
 
-        List<NotificationModel> temp = new ArrayList<>();
-        for (Notification notification : notifications) {
-            temp.add(new NotificationModel(notification.getDate(),
-                    notification.getMessage(), false));
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        if (refreshing) {
-            adapter.setRefreshData(temp);
-        } else {
-            adapter.setLoadingMoreData(temp);
-        }
+    }
 
-        setMessageState("CONTENT");
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, LoanHistoryActivity.class);
+        context.startActivity(intent);
     }
 
     private void setMessageState(String state) {
         switch (state) {
+            case "LOADING":
+                loan_taken_header.setVisibility(View.GONE);
+                progressFrameLayout.showLoading();
+                break;
+
             case "EMPTY":
+                loan_taken_header.setVisibility(View.GONE);
                 progressFrameLayout.showEmpty(R.drawable.empty_box,
                         "No notifications",
                         "No notification has been sent by kooba yet");
                 break;
 
             case "NETWORK_ERROR":
+                loan_taken_header.setVisibility(View.GONE);
                 progressFrameLayout.showError(R.drawable.ic_wifi_off,
                         "No Connection",
                         "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
@@ -183,12 +160,14 @@ public class NotificationActivity extends DaggerAppCompatActivity {
                 break;
 
             case "SERVER_ERROR":
+                loan_taken_header.setVisibility(View.GONE);
                 progressFrameLayout.showError(R.drawable.ic_server_connection_off,
                         "Server Error",
                         "We could not establish a connection with our servers. Please try again after some time",
                         "Try Again", retryInternetConnection);
                 break;
             case "CONTENT":
+                loan_taken_header.setVisibility(View.VISIBLE);
                 progressFrameLayout.showContent();
                 break;
         }
@@ -197,7 +176,9 @@ public class NotificationActivity extends DaggerAppCompatActivity {
     private View.OnClickListener retryInternetConnection = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            loadData(1, true);
+            loanFromApi(1, false);
         }
     };
+
+
 }

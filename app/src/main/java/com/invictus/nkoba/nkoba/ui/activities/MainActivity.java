@@ -52,11 +52,16 @@ public class MainActivity extends DaggerAppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_profile:
-                ProfileActivity.startActivity(this);
+                // ProfileActivity.startActivity(this);
+                UserProfileActivity.startActivity(this);
                 return true;
 
             case R.id.action_notification:
                 NotificationActivity.startActivity(this);
+                return true;
+
+            case R.id.action_loan_history:
+                LoanHistoryActivity.startActivity(this);
                 return true;
 
             case R.id.action_about:

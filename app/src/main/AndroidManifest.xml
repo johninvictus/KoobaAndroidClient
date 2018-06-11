@@ -68,16 +68,6 @@
                 android:value=".ui.activities.MainActivity" />
         </activity>
 
-        <activity
-            android:name=".ui.activities.ProfileActivity"
-            android:parentActivityName=".ui.activities.MainActivity"
-            android:screenOrientation="portrait">
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activities.MainActivity" />
-        </activity>
-
         <activity android:name="com.facebook.accountkit.ui.AccountKitEmailRedirectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -95,6 +85,15 @@
 
         <activity
             android:name=".ui.activities.EnterCredentialsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--user profile-->
+        <activity
+            android:name=".ui.activities.UserProfileActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activities.LoanHistoryActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".fcm.GmsDeviceId">
