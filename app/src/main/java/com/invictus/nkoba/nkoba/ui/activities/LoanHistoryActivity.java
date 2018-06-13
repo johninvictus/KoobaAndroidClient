@@ -9,23 +9,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.invictus.nkoba.nkoba.R;
 import com.invictus.nkoba.nkoba.api.KoobaServerApi;
-import com.invictus.nkoba.nkoba.models.LoanHistoryModel;
 import com.invictus.nkoba.nkoba.models.LoanHistoryResponse;
 import com.invictus.nkoba.nkoba.models.LoansTaken;
 import com.invictus.nkoba.nkoba.ui.adapters.LoanHistoryAdapter;
 import com.vlonjatg.progressactivity.ProgressFrameLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -79,6 +79,7 @@ public class LoanHistoryActivity extends DaggerAppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+
     public void loanFromApi(int page, boolean loadMore) {
         setMessageState("LOADING");
         koobaServerApi.getUserLoanHistory(page)
@@ -90,14 +91,14 @@ public class LoanHistoryActivity extends DaggerAppCompatActivity {
                         if (response.code() == 200 || response.code() == 201) {
                             String responseJson = new Gson().toJson(response.body());
                             LoanHistoryResponse historyResponse = new Gson().fromJson(responseJson, LoanHistoryResponse.class);
-                            if(historyResponse.getLoansTaken().size() == 0){
+                            if (historyResponse.getLoansTaken().size() == 0) {
                                 setMessageState("EMPTY");
-                            }else {
+                            } else {
                                 // do something
                                 List<LoansTaken> loansTakens = historyResponse.getLoansTaken();
-                                if(loadMore){
+                                if (loadMore) {
                                     adapter.addItems(loansTakens);
-                                }else {
+                                } else {
                                     adapter.provideNewData(loansTakens);
                                 }
                                 setMessageState("CONTENT");

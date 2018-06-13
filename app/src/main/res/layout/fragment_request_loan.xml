@@ -55,7 +55,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="3dp"
                         android:layout_marginTop="5dp"
-                        android:fontFamily="@font/source_sans_pro_light"
+                        android:fontFamily="sans-serif"
                         android:text="To increase your loan limit, pay on time to double your limit every month. "
                         android:textAlignment="center"
                         android:textSize="16sp" />
@@ -70,7 +70,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/source_sans_pro_regular"
+                android:fontFamily="sans-serif"
                 android:text="Loan Amount"
                 android:textSize="18sp" />
 
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="7dp"
-                        android:fontFamily="@font/source_sans_pro_light"
+                        android:fontFamily="sans-serif"
                         android:text="Use the slider below to adjust the amount of money  you want to be loaned to you."
                         android:textSize="16sp" />
 
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:layout_marginTop="5dp"
-                        android:fontFamily="@font/source_sans_pro_light"
+                        android:fontFamily="sans-serif"
                         android:text="Select payment shedule"
                         android:textSize="16sp" />
 
@@ -144,7 +144,7 @@
                             android:layout_gravity="center"
                             android:drawablePadding="1dp"
                             android:drawableRight="@drawable/right_arrow"
-                            android:fontFamily="@font/source_sans_pro_regular"
+                            android:fontFamily="sans-serif"
                             android:text="LOAN DETAILS"
                             android:textColor="@color/colorAccent" />
                     </LinearLayout>
@@ -170,6 +170,40 @@
                             android:textColor="#ffff" />
                     </com.andexert.library.RippleView>
 
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="2dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:id="@+id/share_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="Share Kooba to friends"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        app:srcCompat="@drawable/ic_share" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
