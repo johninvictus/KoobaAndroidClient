@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.invictus.nkoba.nkoba.models.StateResponse;
 import com.invictus.nkoba.nkoba.ui.adapters.PaymentSettingAdapter;
 import com.invictus.nkoba.nkoba.ui.dialog.LoanDetailBottomSheetFragment;
 import com.invictus.nkoba.nkoba.ui.dialog.SearchCustomDialog;
+import com.invictus.nkoba.nkoba.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -74,6 +76,9 @@ public class RequestLoanFragment extends Fragment {
     @BindView(R.id.request_btn)
     AppCompatButton requestAppCompatButton;
 
+    @BindView(R.id.share_layout)
+    CardView share_layout;
+
 
     DialogFragment dialogFragment;
 
@@ -103,6 +108,16 @@ public class RequestLoanFragment extends Fragment {
                 Toast.makeText(getActivity(), "Please give loan amount", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        // hide the share card incase it is not visible on small screens
+        if (!ScreenUtils.isViewVisible(share_layout, getActivity())) {
+            share_layout.setVisibility(View.GONE);
+        } else {
+            share_layout.setVisibility(View.VISIBLE);
+        }
+
+
         fetchLimit();
     }
 
@@ -281,6 +296,8 @@ public class RequestLoanFragment extends Fragment {
 
         startActivity(Intent.createChooser(shareIntent, "Share with"));
     }
+
+
 }
 
 

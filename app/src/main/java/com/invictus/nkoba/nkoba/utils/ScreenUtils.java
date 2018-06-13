@@ -9,7 +9,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -49,5 +51,25 @@ public class ScreenUtils {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+
+    public static boolean isViewVisible(final View view, Activity activity) {
+        if (view == null) {
+            return false;
+        }
+        if (!view.isShown()) {
+            return false;
+        }
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        final Rect actualPosition = new Rect();
+        view.getGlobalVisibleRect(actualPosition);
+        final Rect screen = new Rect(0, 0, width, height);
+        return actualPosition.intersect(screen);
     }
 }

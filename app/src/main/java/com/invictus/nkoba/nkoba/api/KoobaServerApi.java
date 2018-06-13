@@ -45,5 +45,5 @@ public interface KoobaServerApi {
     Flowable<Response<Object>> getUserLoanHistory(@Query("page") int page);
 
     @GET("user/profile")
-    Flowable<Response<Object>> getUserProfile(@Query("page") int page);
+    Flowable<Response<Object>> getUserProfile();
 }
