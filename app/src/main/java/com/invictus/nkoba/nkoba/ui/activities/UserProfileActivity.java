@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -65,6 +66,12 @@ public class UserProfileActivity extends DaggerAppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    @BindView(R.id.empty_loan)
+    TextView empty_loan;
+
+    @BindView(R.id.recent_loans)
+    LinearLayout recent_loans;
 
     @Inject
     KoobaServerApi koobaServerApi;
@@ -187,15 +194,20 @@ public class UserProfileActivity extends DaggerAppCompatActivity {
     }
 
     private void popupateRecyclerview(List<LoansTaken> loansTaken) {
-        if(loansTaken.size() == 0){
+        if (loansTaken.size() == 0) {
             // empty message
+            empty_loan.setVisibility(View.VISIBLE);
+            recent_loans.setVisibility(View.GONE);
 
-        }else {
+        } else {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
 
             adapter.provideNewData(loansTaken);
+
+            empty_loan.setVisibility(View.GONE);
+            recent_loans.setVisibility(View.VISIBLE);
         }
     }
 }

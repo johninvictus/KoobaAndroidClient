@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.invictus.nkoba.nkoba.R;
@@ -17,6 +16,7 @@ import com.invictus.nkoba.nkoba.api.KoobaServerApi;
 import com.invictus.nkoba.nkoba.models.LoanHistoryResponse;
 import com.invictus.nkoba.nkoba.models.LoansTaken;
 import com.invictus.nkoba.nkoba.ui.adapters.LoanHistoryAdapter;
+import com.invictus.nkoba.nkoba.utils.RecyclerTouchListener;
 import com.vlonjatg.progressactivity.ProgressFrameLayout;
 
 import java.util.List;
@@ -25,7 +25,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -77,6 +76,20 @@ public class LoanHistoryActivity extends DaggerAppCompatActivity {
     public void setUpRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(LoanHistoryActivity.this, LoanDetailActivity.class);
+                intent.putExtra(LoanDetailActivity.LOAN_ID, adapter.getItem(position).getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 
 
@@ -148,8 +161,8 @@ public class LoanHistoryActivity extends DaggerAppCompatActivity {
             case "EMPTY":
                 loan_taken_header.setVisibility(View.GONE);
                 progressFrameLayout.showEmpty(R.drawable.empty_box,
-                        "No notifications",
-                        "No notification has been sent by kooba yet");
+                        "No taken loans",
+                        "Any loan ever taken will appear here.");
                 break;
 
             case "NETWORK_ERROR":
@@ -180,6 +193,4 @@ public class LoanHistoryActivity extends DaggerAppCompatActivity {
             loanFromApi(1, false);
         }
     };
-
-
 }

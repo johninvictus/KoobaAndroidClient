@@ -15,7 +15,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * Created by invictus on 1/12/18.
@@ -89,5 +88,10 @@ public class LoanHistoryAdapter extends RecyclerView.Adapter<LoanHistoryAdapter.
             String formattedDate = DateTimeUtils.parseDateTime(response.getLoanTakenDate(), "dd-MM-yyyy", "dd/MM/yyyy");
             tv_date.setText(formattedDate);
         }
+    }
+
+
+    public LoansTaken getItem(int position){
+        return models.get(position);
     }
 }

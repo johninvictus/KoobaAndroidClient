@@ -11,6 +11,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -46,4 +47,9 @@ public interface KoobaServerApi {
 
     @GET("user/profile")
     Flowable<Response<Object>> getUserProfile();
+
+    @GET("kooba/loan/{loan_id}")
+    Flowable<Response<Object>> getSingleLoan(@Path("loan_id") int loan_id);
+
+
 }

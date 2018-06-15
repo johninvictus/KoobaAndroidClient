@@ -4,6 +4,7 @@ import com.invictus.nkoba.nkoba.di.module.fragment_module.MainFragmentModule;
 import com.invictus.nkoba.nkoba.ui.SplashActivity;
 import com.invictus.nkoba.nkoba.ui.activities.AuthActivity;
 import com.invictus.nkoba.nkoba.ui.activities.EnterCredentialsActivity;
+import com.invictus.nkoba.nkoba.ui.activities.LoanDetailActivity;
 import com.invictus.nkoba.nkoba.ui.activities.LoanHistoryActivity;
 import com.invictus.nkoba.nkoba.ui.activities.MainActivity;
 import com.invictus.nkoba.nkoba.ui.activities.NotificationActivity;
@@ -43,4 +44,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract LoanHistoryActivity bindLoanHistoryActivity();
+
+    @ContributesAndroidInjector
+    abstract LoanDetailActivity bindLoanDetailActivity();
 }

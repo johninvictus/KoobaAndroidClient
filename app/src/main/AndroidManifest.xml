@@ -96,6 +96,10 @@
             android:name=".ui.activities.LoanHistoryActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.activities.LoanDetailActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".fcm.GmsDeviceId">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
