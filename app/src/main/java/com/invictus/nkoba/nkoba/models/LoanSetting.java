@@ -6,6 +6,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoanSetting {
 
+    @SerializedName("frequency")
+    @Expose
+    private int frequency;
+
+    @SerializedName("late_interest")
+    @Expose
+    private String late_interest;
+
     @SerializedName("term_measure")
     @Expose
     private String termMeasure;
@@ -73,4 +81,20 @@ public class LoanSetting {
         this.id = id;
     }
 
+
+    public String getLateInterest() {
+        return late_interest;
+    }
+
+    public void setLateInterest(String late_interest) {
+        this.late_interest = late_interest;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
 }

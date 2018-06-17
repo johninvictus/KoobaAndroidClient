@@ -1,6 +1,5 @@
 package com.invictus.nkoba.nkoba.ui.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.invictus.nkoba.nkoba.R;
+import com.invictus.nkoba.nkoba.models.LoanPaymentPredictModel;
 
 import java.util.ArrayList;
 
@@ -20,30 +20,29 @@ import butterknife.ButterKnife;
 
 public class LoanScheduesAdapter extends RecyclerView.Adapter<LoanScheduesAdapter.ViewHolder> {
 
-    private Context context;
-    private ArrayList<String> loanSchedues = new ArrayList<>();
+    private ArrayList<LoanPaymentPredictModel> loanSchedues = new ArrayList<>();
 
-
-    public LoanScheduesAdapter(Context context, ArrayList<String> loanSchedues) {
-        this.context = context;
-        this.loanSchedues = loanSchedues;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_loan_schedue, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_loan_schedue, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.populate(loanSchedues.get(position));
     }
 
     @Override
     public int getItemCount() {
-//        return loanSchedues.size();
-        return 4;
+        return loanSchedues.size();
+    }
+
+    public void addData(ArrayList<LoanPaymentPredictModel> data) {
+        loanSchedues.clear();
+        loanSchedues.addAll(data);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,9 +58,9 @@ public class LoanScheduesAdapter extends RecyclerView.Adapter<LoanScheduesAdapte
             ButterKnife.bind(this, view);
         }
 
-        public void populate(String cashString, String dateString) {
-            cashTextview.setText(cashString);
-            dateSchedueTextview.setText(dateString);
+        public void populate(LoanPaymentPredictModel predictModel) {
+            cashTextview.setText(predictModel.getAmount());
+            dateSchedueTextview.setText(predictModel.getSchedueDate());
         }
     }
 }

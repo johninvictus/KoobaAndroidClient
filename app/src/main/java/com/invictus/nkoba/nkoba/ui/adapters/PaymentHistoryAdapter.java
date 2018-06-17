@@ -66,10 +66,10 @@ public class PaymentHistoryAdapter extends RecyclerView.Adapter<PaymentHistoryAd
         }
 
         public void populate(LoanPayment payment) {
-            if(getAdapterPosition()%2 == 0){
+            if (getAdapterPosition() % 2 == 0) {
                 //dark
                 ln_payment_history.setBackgroundColor(Color.parseColor("#d3d4d7"));
-            }else{
+            } else {
                 // light
                 ln_payment_history.setBackgroundColor(Color.parseColor("#fdfeff"));
             }

@@ -13,13 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.invictus.nkoba.nkoba.R;
+import com.invictus.nkoba.nkoba.models.LoanPaymentPredictModel;
 import com.invictus.nkoba.nkoba.models.LoanSetting;
 import com.invictus.nkoba.nkoba.ui.adapters.LoanScheduesAdapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +40,18 @@ public class LoanDetailBottomSheetFragment extends BottomSheetDialogFragment {
 
     @BindView(R.id.loan_schedue_recyclerview)
     RecyclerView recyclerView;
+
+    @BindView(R.id.tv_setting_name)
+    TextView tv_setting_name;
+
+    @BindView(R.id.tv_interest)
+    TextView tv_interest;
+
+    @BindView(R.id.tv_total_loan)
+    TextView tv_total_loan;
+
+    @BindView(R.id.tv_principle)
+    TextView tv_principle;
 
     private Unbinder unbinder;
     private LoanScheduesAdapter scheduesAdapter;
@@ -83,14 +101,78 @@ public class LoanDetailBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void setupUI() {
-        int amount = getArguments().getInt(AMOUNT_KEY);
+
         LoanSetting setting = new Gson().fromJson(getArguments().getString(LOAN_SETTING_KEY), LoanSetting.class);
-
-
-
-        scheduesAdapter = new LoanScheduesAdapter(getActivity(), new ArrayList<String>());
+        scheduesAdapter = new LoanScheduesAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(scheduesAdapter);
+
+        int amount = getArguments().getInt(AMOUNT_KEY);
+        LoanSetting loanSetting = new Gson()
+                .fromJson(getArguments().getString(LOAN_SETTING_KEY), LoanSetting.class);
+        populateUI(amount, loanSetting);
+    }
+
+    private void populateUI(int amount, LoanSetting loanSetting) {
+        // round to remove float
+        int interest = Math.round((loanSetting.getInterest() * amount) / 100);
+        int total_loan = interest + amount;
+        String currency = loanSetting.getMinAmount().getCurrency();
+
+        tv_principle.setText(String.valueOf(amount));
+        tv_setting_name.setText(loanSetting.getName());
+
+        int length = 0;
+        if (loanSetting.getTermMeasure().equals("monthly")) {
+            length = 28;
+        } else if (loanSetting.getTermMeasure().equals("weekly")) {
+            length = 7;
+        }
+
+        //algorithm to calculate schedules
+        int factor = Math.round(loanSetting.getTerm() / (length * loanSetting.getFrequency()));
+
+        // TODO:
+        // int equal_payments = Math.round((total_loan / factor) + 1);
+        int equal_payments = total_loan / factor;
+
+        //offset days
+        int off_set = Math.round(loanSetting.getTerm() / factor);
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        // generate list
+        String currentDate = df.format(c);
+        ArrayList<LoanPaymentPredictModel> tempList = new ArrayList<>();
+
+
+        for (int i = 0; i < factor; i++) {
+            LoanPaymentPredictModel model = new LoanPaymentPredictModel();
+            model.setAmount(equal_payments + " " + currency);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar cd = Calendar.getInstance();
+
+            try {
+                cd.setTime(sdf.parse(currentDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            cd.add(Calendar.DATE, off_set);  // number of days to add
+            currentDate = sdf.format(cd.getTime());  // dt is now the new date
+
+            model.setSchedueDate(currentDate);
+            tempList.add(model);
+        }
+
+        scheduesAdapter.addData(tempList);
+
+        int changedLoanTotal = equal_payments * factor;
+        int changedInterest = changedLoanTotal - amount;
+
+        tv_interest.setText(String.valueOf(changedInterest));
+        tv_total_loan.setText(String.valueOf(changedLoanTotal));
     }
 
     @Override
