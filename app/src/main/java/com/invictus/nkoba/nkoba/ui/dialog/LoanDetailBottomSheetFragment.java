@@ -132,12 +132,12 @@ public class LoanDetailBottomSheetFragment extends BottomSheetDialogFragment {
         //algorithm to calculate schedules
         int factor = Math.round(loanSetting.getTerm() / (length * loanSetting.getFrequency()));
 
-        // TODO:
-        // int equal_payments = Math.round((total_loan / factor) + 1);
-        int equal_payments = total_loan / factor;
-
         //offset days
         int off_set = Math.round(loanSetting.getTerm() / factor);
+
+        // TODO:
+        int equal_payments = Math.round((total_loan / factor) + (factor / off_set));
+
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
