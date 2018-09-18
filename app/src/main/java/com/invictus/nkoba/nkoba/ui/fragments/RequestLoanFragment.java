@@ -110,12 +110,12 @@ public class RequestLoanFragment extends Fragment {
         });
 
 
-        // hide the share card incase it is not visible on small screens
-        if (!ScreenUtils.isViewVisible(share_layout, getActivity())) {
-            share_layout.setVisibility(View.GONE);
-        } else {
-            share_layout.setVisibility(View.VISIBLE);
-        }
+//        // hide the share card incase it is not visible on small screens
+//        if (!ScreenUtils.isViewVisible(share_layout, getActivity())) {
+//            share_layout.setVisibility(View.GONE);
+//        } else {
+//            share_layout.setVisibility(View.VISIBLE);
+//        }
 
 
         fetchLimit();

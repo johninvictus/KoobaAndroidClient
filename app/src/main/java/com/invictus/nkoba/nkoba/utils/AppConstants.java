@@ -20,7 +20,7 @@ public class AppConstants {
     /**
      * Endpoint
      */
-    public static final String BASE_URL = "https://johninvictus.pagekite.me/api/";
+    public static final String BASE_URL = "http://192.168.100.90:5000/api/";
 
     public static final String TOKEN_KEY_ENTRY = "api_key";
 
